@@ -4,6 +4,8 @@
 
 A web music player where you can listen to your favorite songs. This website is a demo, made for educational purposes only.
 
+This project is inspired by this [video](https://www.youtube.com/watch?v=2aeMRB8LL4o) ❤️
+
 ## Prerequisites
 
 #### - Node v20.4.0
