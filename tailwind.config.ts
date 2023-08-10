@@ -6,7 +6,21 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  theme: {},
-  plugins: [],
+  theme: {
+    extend: {},
+  },
+  rippleui: {
+    themes: [
+      {
+        themeName: 'dark',
+        prefersColorScheme: true,
+        colors: {
+          primary: '#1DB954',
+          backgroundPrimary: '#121212',
+        },
+      },
+    ],
+  },
+  plugins: [require('rippleui')],
 };
 export default config;
