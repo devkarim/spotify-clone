@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 
 import SidebarCard from './sidebar-card';
 import Card from '../ui/card';
+import Appbar from '../ui/appbar';
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -81,7 +82,12 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
           </Card>
         </SidebarCard>
       </div>
-      <div>{children}</div>
+      <div className="w-full max-h-screen py-2">
+        <div className="bg-backgroundSecondary h-full w-full overflow-y-auto space-y-4">
+          <Appbar />
+          {children}
+        </div>
+      </div>
     </div>
   );
 };
