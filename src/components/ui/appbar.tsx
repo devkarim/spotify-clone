@@ -26,10 +26,10 @@ const Appbar: React.FC<AppbarProps> = ({}) => {
         </button>
       </div>
       <div className="flex gap-8 items-center">
-        <Link href="/signup" className="font-bold opacity-80 hover:opacity-100">
+        <Link href="/signup" className="font-bold opacity-60 hover:opacity-100">
           Sign up
         </Link>
-        <button className="btn btn-secondary btn-rounded">Log in</button>
+        <button className="btn btn-secondary btn-rounded w-32">Log in</button>
       </div>
     </div>
   );
