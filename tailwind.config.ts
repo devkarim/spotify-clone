@@ -7,16 +7,21 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        card: '#242424',
+      },
+    },
   },
   rippleui: {
     themes: [
       {
         themeName: 'dark',
-        prefersColorScheme: true,
         colors: {
           primary: '#1DB954',
-          backgroundPrimary: '#121212',
+          secondary: '#ffffff',
+          backgroundPrimary: '#000000',
+          backgroundSecondary: '#121212',
         },
       },
     ],
