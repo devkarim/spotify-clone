@@ -4,9 +4,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
+import useLoginModal from '@/hooks/use-login-modal';
+
 interface AppbarProps {}
 
 const Appbar: React.FC<AppbarProps> = ({}) => {
+  const loginModal = useLoginModal();
   const router = useRouter();
 
   return (
@@ -33,10 +36,19 @@ const Appbar: React.FC<AppbarProps> = ({}) => {
           Premium
         </Link>
         <div className="divider divider-vertical before:bg-white after:bg-white m-0 h-8" />
-        <Link href="/signup" className="font-bold opacity-60 hover:opacity-100">
+        <Link
+          href="/signup"
+          className="font-bold opacity-60 hover:opacity-100"
+          onClick={() => loginModal.onOpen('register')}
+        >
           Sign up
         </Link>
-        <button className="btn btn-secondary btn-rounded w-32">Log in</button>
+        <button
+          className="btn btn-secondary btn-rounded w-32"
+          onClick={() => loginModal.onOpen('login')}
+        >
+          Log in
+        </button>
       </div>
     </div>
   );
