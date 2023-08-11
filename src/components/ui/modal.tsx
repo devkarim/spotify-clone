@@ -2,6 +2,7 @@
 
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { FaXmark } from 'react-icons/fa6';
 
 import { cn } from '@/lib/utils';
 
@@ -11,10 +12,6 @@ interface ModalProps {
   isOpen?: boolean;
   onClose: () => void;
   children?: React.ReactNode;
-  primaryActionLabel?: string;
-  secondaryActionLabel?: string;
-  onPrimaryAction?: () => void;
-  onSecondaryAction?: () => void;
   disabled?: boolean;
   onOuterClick?: () => void;
   parentClassName?: string;
@@ -27,10 +24,6 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   children,
-  primaryActionLabel,
-  secondaryActionLabel,
-  onPrimaryAction,
-  onSecondaryAction,
   disabled = false,
   onOuterClick,
   parentClassName,
@@ -62,41 +55,27 @@ const Modal: React.FC<ModalProps> = ({
           <div className="left-0 flex w-full min-h-full justify-center items-center p-4 overflow-y-auto">
             <Dialog.Panel
               className={cn(
-                'card w-full max-w-xl bg-card shadow-xl p-2',
+                'card relative rounded-md w-full max-w-xl bg-card shadow-xl p-2',
                 className
               )}
             >
-              <div className="card-body space-y-8">
+              <button
+                className="btn btn-circle btn-ghost absolute right-2"
+                type="button"
+                onClick={onClose}
+              >
+                <FaXmark className="opacity-60" />
+              </button>
+              <div className="card-body space-y-4">
                 <div className="space-y-1">
                   {title && (
-                    <h2 className="card-title text-xl lg:text-2xl">{title}</h2>
+                    <h2 className="font-semibold text-xl lg:text-2xl">
+                      {title}
+                    </h2>
                   )}
-                  {subtitle && (
-                    <p className="text-sm text-base-content/50">{subtitle}</p>
-                  )}
-                  {children}
+                  {subtitle && <p className="text-sm opacity-60">{subtitle}</p>}
                 </div>
-                <div className="card-actions flex items-center justify-end">
-                  {secondaryActionLabel && (
-                    <button
-                      className="btn btn-outline text-base font-normal"
-                      onClick={onSecondaryAction}
-                      disabled={disabled}
-                    >
-                      {secondaryActionLabel}
-                    </button>
-                  )}
-                  {primaryActionLabel && (
-                    <button
-                      className="btn btn-primary sm:px-12 text-base font-normal"
-                      type="submit"
-                      onClick={onPrimaryAction}
-                      disabled={disabled}
-                    >
-                      {primaryActionLabel}
-                    </button>
-                  )}
-                </div>
+                {children}
               </div>
             </Dialog.Panel>
           </div>

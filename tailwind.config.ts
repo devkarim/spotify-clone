@@ -22,6 +22,7 @@ const config: Config = {
           secondary: '#ffffff',
           backgroundPrimary: '#000000',
           backgroundSecondary: '#121212',
+          error: '#ff0000',
         },
       },
     ],
