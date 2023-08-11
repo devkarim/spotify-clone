@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "cockroachdb"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+enum ProviderName {
+  GITHUB
+}
+
+model User {
+  id        BigInt     @id @default(autoincrement())
+  name      String?
+  email     String     @unique
+  password  String?
+  imageUrl  String?
+  providers Provider[]
+  songs     Song[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Provider {
+  id            BigInt       @id @default(autoincrement())
+  name          ProviderName
+  access_token  String
+  refresh_token String
+  user          User         @relation(fields: [userId], references: [id])
+  userId        BigInt
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Song {
+  id        BigInt   @id @default(autoincrement())
+  name      String
+  imageUrl  String
+  songUrl   String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    BigInt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
