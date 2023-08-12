@@ -6,8 +6,12 @@ class Response {
     return NextResponse.json({ success: true, data }, { status: 200 });
   }
 
-  static error(message: string, status: number) {
-    return new ServerError(message, status);
+  static error(err: unknown) {
+    const { message, statusCode } = ServerError.from(err);
+    return NextResponse.json(
+      { success: false, message: message },
+      { status: statusCode }
+    );
   }
 
   static parseError(err: unknown) {
