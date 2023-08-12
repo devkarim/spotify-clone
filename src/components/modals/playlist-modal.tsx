@@ -1,6 +1,7 @@
 'use client';
 
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -22,6 +23,7 @@ interface PlaylistModalProps {
 
 const PlaylistModal: React.FC<PlaylistModalProps> = ({ name, imageUrl }) => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const playlistModal = usePlaylistModal();
   const {
     control,
@@ -48,6 +50,7 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({ name, imageUrl }) => {
         await edit(formData);
       }
       playlistModal.hide();
+      router.refresh();
     } catch (err) {
       log.exception(err, 'playlist-modal');
       toast.error(Response.parseError(err));
