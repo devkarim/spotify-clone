@@ -45,6 +45,21 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, status]);
 
+  const signInWith = async (provider: string) => {
+    setLoading(true);
+    try {
+      const callback = await signIn(provider, { redirect: false });
+      if (callback?.error) {
+        return toast.error(callback.error);
+      }
+    } catch (err) {
+      log.exception(err, 'login-modal');
+      toast.error(Response.parseError(err));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const onSubmit = async (formData: AuthSchema) => {
     setLoading(true);
     try {
@@ -69,6 +84,10 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
     if (callback?.error) {
       return toast.error(callback.error);
     }
+    successfulLogin();
+  };
+
+  const successfulLogin = () => {
     toast.success(`Successfully logged in!`);
     router.push('/');
     router.refresh();
@@ -98,6 +117,7 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
       <button
         className="btn bg-black/20 btn-block gap-3 rounded-md h-12"
         disabled={loading}
+        onClick={() => signInWith('github')}
       >
         <FaGithub className="text-xl" /> Sign in with GitHub
       </button>

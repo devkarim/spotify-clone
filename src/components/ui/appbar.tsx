@@ -42,10 +42,7 @@ const Appbar: React.FC<AppbarProps> = ({ isSignedIn, name, imageUrl }) => {
         </Link>
         <div className="divider divider-vertical before:bg-white after:bg-white m-0 h-8" />
         {isSignedIn ? (
-          <span
-            className="tooltip tooltip-bottom"
-            data-tooltip={name || 'Guest'}
-          >
+          <span className="tooltip tooltip-left" data-tooltip={name || 'Guest'}>
             <div className="relative avatar h-10 w-10">
               <Image
                 src={imageUrl || '/img/default-avatar.jpg'}
