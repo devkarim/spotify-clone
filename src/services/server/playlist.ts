@@ -12,3 +12,13 @@ export const createPlaylist = (
       imageUrl,
     },
   });
+
+export const getPlaylistsByUser = (userId?: bigint) =>
+  userId
+    ? prisma.playlist.findMany({
+        where: {
+          userId,
+        },
+        orderBy: { updatedAt: 'desc' },
+      })
+    : [];
