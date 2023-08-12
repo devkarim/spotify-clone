@@ -16,10 +16,12 @@ import Modal from '@/components/ui/modal';
 import useLoginModal from '@/hooks/use-login-modal';
 import { createAccount } from '@/services/client/auth';
 import { AuthSchema, authSchema } from '@/schemas/authSchema';
+import useUser from '@/hooks/useUser';
 
 interface LoginModalProps {}
 
 const LoginModal: React.FC<LoginModalProps> = ({}) => {
+  const user = useUser();
   const [loading, setLoading] = useState(false);
   const { isOpen, show, hide, toggleStatus, status, setStatus } =
     useLoginModal();
@@ -48,7 +50,7 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
   }, [isOpen, status, params]);
 
   useEffect(() => {
-    if (params.get('error')) {
+    if (params.get('error') && !user) {
       toast.error(params.get('error'));
       show();
     }
@@ -58,9 +60,7 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
   const signInWith = async (provider: string) => {
     setLoading(true);
     try {
-      const callback = await signIn(provider, {
-        redirect: false,
-      });
+      const callback = await signIn(provider);
       if (callback?.error) {
         return toast.error(callback.error);
       }
@@ -116,7 +116,7 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
 
   return (
     <Modal
-      isOpen={isOpen}
+      isOpen={isOpen && !user}
       onClose={hide}
       title={status == 'login' ? 'Sign In' : 'Sign Up'}
       subtitle={
