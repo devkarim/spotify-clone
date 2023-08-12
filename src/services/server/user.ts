@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 
 import prisma from '@/lib/prisma';
 import Errors from '@/config/errors';
+
 import { exclude } from '@/lib/exclude-prisma';
 
 export const createUser = async (email: string, password: string) => {
