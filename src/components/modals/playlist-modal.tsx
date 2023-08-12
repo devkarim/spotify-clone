@@ -1,28 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import log from '@/lib/log';
+import Response from '@/types/server';
 import { capatlize } from '@/lib/utils';
 import Modal from '@/components/ui/modal';
 import Input from '@/components/ui/input';
-import usePlaylistModal from '@/hooks/use-playlist-modal';
-import { PlaylistSchema, playlistSchema } from '@/schemas/playlistSchema';
 import FileInput from '@/components/ui/file-input';
-import log from '@/lib/log';
-import { toast } from 'react-toastify';
-import Response from '@/types/server';
+import usePlaylistModal from '@/hooks/use-playlist-modal';
+import { createPlaylist } from '@/services/client/playlist';
+import { PlaylistSchema, playlistSchema } from '@/schemas/playlistSchema';
 
 interface PlaylistModalProps {
   name?: string;
   imageUrl?: string;
 }
 
-const PlaylistModal: React.FC<PlaylistModalProps> = ({
-  name = '',
-  imageUrl = '',
-}) => {
+const PlaylistModal: React.FC<PlaylistModalProps> = ({ name, imageUrl }) => {
   const [loading, setLoading] = useState(false);
   const playlistModal = usePlaylistModal();
   const {
@@ -41,9 +39,38 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
 
   const action = capatlize(playlistModal.status);
 
-  const onSubmit = (formData: PlaylistSchema) => {
-    log.info(formData);
+  const onSubmit = async (formData: PlaylistSchema) => {
+    setLoading(true);
+    try {
+      if (playlistModal.status == 'create') {
+        await create(formData);
+      } else {
+        await edit(formData);
+      }
+      playlistModal.hide();
+    } catch (err) {
+      log.exception(err, 'playlist-modal');
+      toast.error(Response.parseError(err));
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const create = async (formData: PlaylistSchema) => {
+    const playlist = await createPlaylist(formData.name, formData.imageUrl);
+    toast.success(`Created playlist "${playlist.name}"`);
+  };
+
+  const edit = async (formData: PlaylistSchema) => {
+    toast.success(`Edited playlist "${name}"`);
+  };
+
+  useEffect(() => {
+    if (playlistModal.isOpen) {
+      reset();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playlistModal.isOpen]);
 
   return (
     <Modal
@@ -76,8 +103,8 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({
                 accept="image/png, image/gif, image/jpeg"
                 onUpload={() => setLoading(true)}
                 onUploadError={(err) => toast.error(Response.parseError(err))}
-                onFinishUpload={() => setLoading(false)}
-                onURLChange={(url) => field.onChange(url)}
+                onDone={() => setLoading(false)}
+                onFinishUpload={(_, url) => field.onChange(url)}
                 error={error?.message}
                 disabled={loading}
                 full
