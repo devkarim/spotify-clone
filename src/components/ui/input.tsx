@@ -12,6 +12,7 @@ export interface InputProps
   right?: React.ReactNode;
   parentClassName?: string;
   full?: boolean;
+  file?: boolean;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -24,6 +25,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       solid = false,
       parentClassName,
       full,
+      file,
       ...props
     },
     ref
@@ -46,7 +48,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div className="relative w-full">
           <input
             className={cn(
-              'input focus:border-white/60 transition-colors',
+              'focus:border-white/60 transition-colors',
+              {
+                input: !file,
+              },
+              {
+                'input-file': file,
+              },
               {
                 'input-error focus:border-error': !!error,
               },
