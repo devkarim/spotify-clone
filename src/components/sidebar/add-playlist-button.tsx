@@ -1,7 +1,8 @@
 'use client';
 
 import useLoginModal from '@/hooks/use-login-modal';
-import useUser from '@/hooks/useUser';
+import usePlaylistModal from '@/hooks/use-playlist-modal';
+import useUser from '@/hooks/use-user';
 import { FaPlus } from 'react-icons/fa';
 
 interface AddPlaylistButtonProps {
@@ -13,10 +14,11 @@ const AddPlaylistButton: React.FC<AddPlaylistButtonProps> = ({
 }) => {
   const user = useUser();
   const loginModal = useLoginModal();
+  const playlistModal = usePlaylistModal();
 
   const onCreatePlaylist = () => {
     if (!user) return loginModal.show();
-    // TODO: show playlist creation modal
+    playlistModal.show('create');
   };
 
   return icon ? (

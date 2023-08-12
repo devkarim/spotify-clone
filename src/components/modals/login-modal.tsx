@@ -16,7 +16,7 @@ import Modal from '@/components/ui/modal';
 import useLoginModal from '@/hooks/use-login-modal';
 import { createAccount } from '@/services/client/auth';
 import { AuthSchema, authSchema } from '@/schemas/authSchema';
-import useUser from '@/hooks/useUser';
+import useUser from '@/hooks/use-user';
 
 interface LoginModalProps {}
 
@@ -39,7 +39,6 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
       email: '',
       password: '',
     },
-    reValidateMode: 'onBlur',
   });
 
   useEffect(() => {

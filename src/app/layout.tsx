@@ -5,9 +5,10 @@ import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 
 import Sidebar from '@/components/sidebar/main-sidebar';
-import ToastProvider from '@/components/providers/toast-provider';
 import LoginModal from '@/components/modals/login-modal';
+import PlaylistModal from '@/components/modals/playlist-modal';
 import AuthProvider from '@/components/providers/auth-provider';
+import ToastProvider from '@/components/providers/toast-provider';
 
 const font = Figtree({ subsets: ['latin'] });
 
@@ -27,6 +28,7 @@ export default async function RootLayout({
         <AuthProvider>
           <ToastProvider />
           <LoginModal />
+          <PlaylistModal />
           <Sidebar>{children}</Sidebar>
         </AuthProvider>
       </body>
