@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { usePathname } from 'next/navigation';
-import { PiHouseBold, PiHouseFill } from 'react-icons/pi';
+import { PiHouseSimpleBold, PiHouseSimpleFill } from 'react-icons/pi';
 import { RiSearchLine, RiSearchFill } from 'react-icons/ri';
 
 import { cn } from '@/lib/utils';
@@ -20,8 +20,8 @@ const SidebarRoutes: React.FC<SidebarRoutesProps> = ({}) => {
       {
         name: 'Home',
         path: '/',
-        icon: <PiHouseBold className="text-3xl" />,
-        iconActive: <PiHouseFill className="text-3xl" />,
+        icon: <PiHouseSimpleBold className="text-3xl" />,
+        iconActive: <PiHouseSimpleFill className="text-3xl" />,
         active: pathname == '/',
       },
       {
