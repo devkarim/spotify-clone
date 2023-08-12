@@ -32,7 +32,7 @@ model Provider {
   name          ProviderName
   access_token  String
   refresh_token String
-  user          User         @relation(fields: [userId], references: [id])
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        BigInt
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
@@ -43,7 +43,7 @@ model Song {
   name      String
   imageUrl  String
   songUrl   String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    BigInt
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

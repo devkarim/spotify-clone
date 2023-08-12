@@ -1,14 +1,21 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { FaGithub } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
+import { FaGithub } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import log from '@/lib/log';
 import useLoginModal from '@/hooks/use-login-modal';
+import { AuthSchema, authSchema } from '@/schemas/authSchema';
+
 import Modal from '../ui/modal';
 import Input from '../ui/input';
-import { LoginSchema, loginSchema } from '@/schemas/loginSchema';
+import { createAccount } from '@/services/client/auth';
+import { cn } from '@/lib/utils';
+import Response from '@/types/server';
 
 interface LoginModalProps {}
 
@@ -21,8 +28,8 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
     register,
     reset,
     formState: { errors },
-  } = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<AuthSchema>({
+    resolver: zodResolver(authSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -30,16 +37,46 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
     reValidateMode: 'onBlur',
   });
 
-  const onSubmit = (formData: LoginSchema) => {
-    console.log('Login:', formData);
-  };
-
   useEffect(() => {
     if (isOpen) {
       reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
+  }, [isOpen, status]);
+
+  const onSubmit = async (formData: AuthSchema) => {
+    setLoading(true);
+    try {
+      if (status == 'login') {
+        await login(formData);
+      } else {
+        await signup(formData);
+      }
+    } catch (err) {
+      log.exception(err, 'login-modal');
+      toast.error(Response.parseError(err));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const login = async (formData: AuthSchema) => {
+    const callback = await signIn('credentials', {
+      ...formData,
+      redirect: false,
+    });
+    if (callback?.error) {
+      return toast.error(callback.error);
+    }
+    toast.success(`Successfully logged in!`);
+  };
+
+  const signup = async (formData: AuthSchema) => {
+    await createAccount(formData.email, formData.password);
+    toast.success(
+      `Successfully created an account! Please log into your new account.`
+    );
+  };
 
   return (
     <Modal
@@ -53,7 +90,10 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
       }
       className="max-w-lg"
     >
-      <button className="btn bg-black/20 btn-block gap-3 rounded-md h-12">
+      <button
+        className="btn bg-black/20 btn-block gap-3 rounded-md h-12"
+        disabled={loading}
+      >
         <FaGithub className="text-xl" /> Sign in with GitHub
       </button>
       <div className="divider">OR</div>
@@ -64,6 +104,7 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
             type="email"
             label="Email"
             placeholder="Email address"
+            disabled={loading}
             error={errors.email?.message}
             full
             {...register('email')}
@@ -73,6 +114,7 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
             type="password"
             label="Password"
             placeholder="Password"
+            disabled={loading}
             error={errors.password?.message}
             full
             {...register('password')}
@@ -83,17 +125,22 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
             className="btn btn-block rounded-md btn-primary"
             type="submit"
             onClick={handleSubmit(onSubmit)}
+            disabled={loading}
           >
             {status == 'login' ? 'Sign In' : 'Create an account'}
           </button>
-          <p
-            className="text-sm underline cursor-pointer text-center opacity-60"
+          <button
+            className={cn('text-sm underline w-full opacity-60', {
+              'opacity-30': loading,
+            })}
+            type="button"
+            disabled={loading}
             onClick={toggleStatus}
           >
             {status == 'login'
               ? "Don't have an account? Sign up"
               : 'Already have an account? Sign in'}{' '}
-          </p>
+          </button>
         </div>
       </div>
     </Modal>
