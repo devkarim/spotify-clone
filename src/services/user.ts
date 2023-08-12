@@ -37,14 +37,31 @@ export const authenticate = async (email: string, password: string) => {
 
 export const authenticateOAuth = async (
   email: string,
+  access_token: string,
   name?: string | null,
-  imageUrl?: string | null
+  imageUrl?: string | null,
+  refresh_token?: string | null
 ) => {
   const user = await prisma.user.findUnique({
     where: { email },
   });
   if (!user) {
-    await prisma.user.create({ data: { email, name, imageUrl } });
+    await prisma.user.create({
+      data: {
+        email,
+        name,
+        imageUrl,
+        providers: {
+          create: {
+            name: 'GITHUB',
+            access_token,
+            refresh_token,
+          },
+        },
+      },
+    });
+  } else {
+    if (user.password) throw Errors.emailTaken;
   }
   return true;
 };

@@ -4,9 +4,9 @@ import { toast } from 'react-toastify';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import log from '@/lib/log';
 import { cn } from '@/lib/utils';
@@ -21,8 +21,10 @@ interface LoginModalProps {}
 
 const LoginModal: React.FC<LoginModalProps> = ({}) => {
   const [loading, setLoading] = useState(false);
-  const { isOpen, hide, toggleStatus, status, setStatus } = useLoginModal();
+  const { isOpen, show, hide, toggleStatus, status, setStatus } =
+    useLoginModal();
   const router = useRouter();
+  const params = useSearchParams();
 
   const {
     handleSubmit,
@@ -43,12 +45,22 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
       reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, status]);
+  }, [isOpen, status, params]);
+
+  useEffect(() => {
+    if (params.get('error')) {
+      toast.error(params.get('error'));
+      show();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]);
 
   const signInWith = async (provider: string) => {
     setLoading(true);
     try {
-      const callback = await signIn(provider, { redirect: false });
+      const callback = await signIn(provider, {
+        redirect: false,
+      });
       if (callback?.error) {
         return toast.error(callback.error);
       }

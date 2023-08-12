@@ -30,8 +30,8 @@ model User {
 model Provider {
   id            BigInt       @id @default(autoincrement())
   name          ProviderName
-  access_token  String
-  refresh_token String
+  access_token  String       @unique
+  refresh_token String?
   user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        BigInt
   createdAt     DateTime     @default(now())

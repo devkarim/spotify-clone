@@ -10,6 +10,12 @@ const authOptions: AuthOptions = {
   session: {
     strategy: 'jwt',
   },
+  pages: {
+    signIn: '/',
+    signOut: '/',
+    error: '/',
+    newUser: '/',
+  },
   debug: process.env.NODE_ENV === 'development',
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -29,14 +35,6 @@ const authOptions: AuthOptions = {
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       authorization: { params: { scope: 'read:user user:email' } },
-      // profile(profile) {
-      //   return {
-      //     id: profile.id.toString(),
-      //     name: profile.name ?? profile.login,
-      //     email: profile.email,
-      //     image: profile.avatar_url,
-      //   };
-      // },
     }),
   ],
   callbacks: {
@@ -53,11 +51,17 @@ const authOptions: AuthOptions = {
       };
       return session;
     },
-    async signIn({ user: profile }) {
-      log.info(profile, 'sign-in');
-      if (!profile || !profile.email) return false;
+    async signIn({ user: profile, account }) {
+      if (!profile || !profile.email || !account || !account.access_token)
+        return false;
       try {
-        return authenticateOAuth(profile.email, profile.name, profile.image);
+        return authenticateOAuth(
+          profile.email,
+          account.access_token,
+          profile.name,
+          profile.image,
+          account?.refresh_token
+        );
       } catch (error) {
         log.exception(error, 'oauth');
         return false;
