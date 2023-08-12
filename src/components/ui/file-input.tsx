@@ -5,35 +5,35 @@ import upload from '@/services/client/cloudinary';
 import Input, { InputProps } from './input';
 
 interface FileInputProps extends InputProps {
-  onURLChange?: (url: string) => void;
+  onFinishUpload?: (name: string, url: string) => void;
   onUpload?: (file: File) => void;
   onUploadError?: (err: unknown) => void;
-  onFinishUpload?: () => void;
+  onDone?: () => void;
 }
 
 const FileInput: React.FC<FileInputProps> = ({
-  onURLChange,
+  onFinishUpload,
   onUpload,
   onUploadError,
-  onFinishUpload,
+  onDone,
   disabled,
   ...props
 }) => {
   const [loading, setLoading] = useState(false);
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || !e.target.files[0]) return onURLChange?.('');
+    if (!e.target.files || !e.target.files[0]) return onFinishUpload?.('', '');
     const file = e.target.files[0];
     onUpload?.(file);
     setLoading(true);
     try {
       const url = await upload(file);
-      onURLChange?.(url);
+      onFinishUpload?.(file.name, url);
     } catch (err) {
       onUploadError?.(err);
     } finally {
       setLoading(false);
-      onFinishUpload?.();
+      onDone?.();
     }
   };
 
