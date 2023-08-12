@@ -8,5 +8,5 @@ export type UserResponse = BaseResponse<Omit<User, 'password'>>;
 
 export const createAccount = (email: string, password: string) =>
   client
-    .post<UserResponse>('api/signup', { email, password })
+    .post<UserResponse>('/signup', { email, password })
     .then((res) => res.data.data);

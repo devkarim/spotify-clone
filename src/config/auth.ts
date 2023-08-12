@@ -3,7 +3,7 @@ import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import prisma from '@/lib/prisma';
-import { authenticate, authenticateOAuth } from '@/services/user';
+import { authenticate, authenticateOAuth } from '@/services/server/user';
 import log from '@/lib/log';
 
 const authOptions: AuthOptions = {
