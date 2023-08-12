@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -19,8 +20,9 @@ import { AuthSchema, authSchema } from '@/schemas/authSchema';
 interface LoginModalProps {}
 
 const LoginModal: React.FC<LoginModalProps> = ({}) => {
-  const { isOpen, onClose, toggleStatus, status } = useLoginModal();
   const [loading, setLoading] = useState(false);
+  const { isOpen, onClose, toggleStatus, status, setStatus } = useLoginModal();
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -68,6 +70,9 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
       return toast.error(callback.error);
     }
     toast.success(`Successfully logged in!`);
+    router.push('/');
+    router.refresh();
+    onClose();
   };
 
   const signup = async (formData: AuthSchema) => {
@@ -75,6 +80,7 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
     toast.success(
       `Successfully created an account! Please log into your new account.`
     );
+    setStatus('login');
   };
 
   return (
