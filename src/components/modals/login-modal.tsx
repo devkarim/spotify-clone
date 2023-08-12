@@ -8,14 +8,13 @@ import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import log from '@/lib/log';
-import useLoginModal from '@/hooks/use-login-modal';
-import { AuthSchema, authSchema } from '@/schemas/authSchema';
-
-import Modal from '../ui/modal';
-import Input from '../ui/input';
-import { createAccount } from '@/services/client/auth';
 import { cn } from '@/lib/utils';
 import Response from '@/types/server';
+import Input from '@/components/ui/input';
+import Modal from '@/components/ui/modal';
+import useLoginModal from '@/hooks/use-login-modal';
+import { createAccount } from '@/services/client/auth';
+import { AuthSchema, authSchema } from '@/schemas/authSchema';
 
 interface LoginModalProps {}
 

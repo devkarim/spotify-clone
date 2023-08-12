@@ -7,6 +7,7 @@ import { Figtree } from 'next/font/google';
 import Sidebar from '@/components/sidebar/main-sidebar';
 import ToastProvider from '@/components/providers/toast-provider';
 import LoginModal from '@/components/modals/login-modal';
+import AuthProvider from '@/components/providers/auth-provider';
 
 const font = Figtree({ subsets: ['latin'] });
 
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   description: 'Web music player to listen to your favorite songs.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="dark">
       <body className={font.className}>
-        <ToastProvider />
-        <LoginModal />
-        <Sidebar>{children}</Sidebar>
+        <AuthProvider>
+          <ToastProvider />
+          <LoginModal />
+          <Sidebar>{children}</Sidebar>
+        </AuthProvider>
       </body>
     </html>
   );

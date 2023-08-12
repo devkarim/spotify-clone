@@ -5,10 +5,15 @@ import { useRouter } from 'next/navigation';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
 import useLoginModal from '@/hooks/use-login-modal';
+import Image from 'next/image';
 
-interface AppbarProps {}
+interface AppbarProps {
+  isSignedIn?: boolean;
+  name?: string | null;
+  imageUrl?: string | null;
+}
 
-const Appbar: React.FC<AppbarProps> = ({}) => {
+const Appbar: React.FC<AppbarProps> = ({ isSignedIn, name, imageUrl }) => {
   const loginModal = useLoginModal();
   const router = useRouter();
 
@@ -36,18 +41,35 @@ const Appbar: React.FC<AppbarProps> = ({}) => {
           Premium
         </Link>
         <div className="divider divider-vertical before:bg-white after:bg-white m-0 h-8" />
-        <button
-          className="font-bold opacity-60 hover:opacity-100"
-          onClick={() => loginModal.onOpen('register')}
-        >
-          Sign up
-        </button>
-        <button
-          className="btn btn-secondary btn-rounded w-32"
-          onClick={() => loginModal.onOpen('login')}
-        >
-          Log in
-        </button>
+        {isSignedIn ? (
+          <span
+            className="tooltip tooltip-bottom"
+            data-tooltip={name || 'Guest'}
+          >
+            <div className="relative avatar h-10 w-10">
+              <Image
+                src={imageUrl || '/img/default-avatar.jpg'}
+                alt="profile-pic"
+                fill
+              />
+            </div>
+          </span>
+        ) : (
+          <>
+            <button
+              className="font-bold opacity-60 hover:opacity-100"
+              onClick={() => loginModal.onOpen('register')}
+            >
+              Sign up
+            </button>
+            <button
+              className="btn btn-secondary btn-rounded w-32"
+              onClick={() => loginModal.onOpen('login')}
+            >
+              Log in
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

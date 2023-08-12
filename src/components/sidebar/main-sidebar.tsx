@@ -1,90 +1,31 @@
-'use client';
+import { getServerSession } from 'next-auth';
 
-import Link from 'next/link';
-import { useMemo } from 'react';
-import { usePathname } from 'next/navigation';
-import { PiHouseBold, PiHouseFill } from 'react-icons/pi';
-import { RiSearchLine, RiSearchFill } from 'react-icons/ri';
-import { FaPlus } from 'react-icons/fa';
-import { VscLibrary } from 'react-icons/vsc';
+import authOptions from '@/config/auth';
+import Appbar from '@/components/ui/appbar';
 
-import { cn } from '@/lib/utils';
-
-import SidebarCard from './sidebar-card';
-import Card from '../ui/card';
-import Appbar from '../ui/appbar';
+import SidebarRoutes from './sidebar-routes';
+import SidebarLibrary from './sidebar-library';
 
 interface SidebarProps {
   children: React.ReactNode;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ children }) => {
-  const pathname = usePathname();
-
-  const routes = useMemo(() => {
-    return [
-      {
-        name: 'Home',
-        path: '/',
-        icon: <PiHouseBold className="text-3xl" />,
-        iconActive: <PiHouseFill className="text-3xl" />,
-        active: pathname == '/',
-      },
-      {
-        name: 'Search',
-        path: '/search',
-        icon: <RiSearchLine className="ml-1 text-2xl" />,
-        iconActive: <RiSearchFill className="ml-1 text-2xl" />,
-        active: pathname == '/search',
-      },
-    ];
-  }, [pathname]);
+const Sidebar: React.FC<SidebarProps> = async ({ children }) => {
+  const session = await getServerSession(authOptions);
 
   return (
     <div className="flex">
       <div className="flex flex-col h-screen w-full max-w-sm space-y-2 p-2 font-semibold">
-        <SidebarCard className="space-y-5">
-          <div className="flex flex-col gap-5">
-            {routes.map((r) => (
-              <Link
-                href={r.path}
-                key={r.name}
-                className={cn('flex items-center gap-4 cursor-pointer', {
-                  'opacity-60 hover:opacity-100 transition-opacity': !r.active,
-                })}
-              >
-                <div className="w-8">{r.active ? r.iconActive : r.icon}</div>
-                <p>{r.name}</p>
-              </Link>
-            ))}
-          </div>
-        </SidebarCard>
-        <SidebarCard className="h-full space-y-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
-              <div className="w-8">
-                <VscLibrary className="text-2xl" />
-              </div>
-              <p>Your Library</p>
-            </div>
-            <button className="btn btn-circle btn-ghost opacity-60 hover:opacity-100 w-8 h-8 transition-opacity">
-              <FaPlus />
-            </button>
-          </div>
-          <Card className="space-y-6">
-            <div className="space-y-2">
-              <h4>Create your first playlist</h4>
-              <p className="text-sm opacity-60">
-                Your Beats, Your Rules. Start making your playlist!
-              </p>
-            </div>
-            <button className="btn btn-secondary">Create playlist</button>
-          </Card>
-        </SidebarCard>
+        <SidebarRoutes />
+        <SidebarLibrary />
       </div>
       <div className="w-full max-h-screen py-2">
         <div className="bg-backgroundSecondary h-full w-full overflow-y-auto space-y-4">
-          <Appbar />
+          <Appbar
+            isSignedIn={!!session?.user}
+            name={session?.user.name}
+            imageUrl={session?.user.image}
+          />
           {children}
         </div>
       </div>

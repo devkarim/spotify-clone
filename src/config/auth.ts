@@ -41,7 +41,7 @@ const authOptions: AuthOptions = {
   ],
   callbacks: {
     async session({ session }) {
-      log.info(session);
+      log.info(session.user, 'session');
       const user = await prisma.user.findUnique({
         where: { email: session.user.email },
       });
@@ -54,6 +54,7 @@ const authOptions: AuthOptions = {
       return session;
     },
     async signIn({ user: profile }) {
+      log.info(profile, 'sign-in');
       if (!profile || !profile.email) return false;
       try {
         return authenticateOAuth(profile.email, profile.name, profile.image);
