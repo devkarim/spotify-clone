@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { usePathname } from 'next/navigation';
-import { PiHouseSimpleBold, PiHouseSimpleFill } from 'react-icons/pi';
 import { RiSearchLine, RiSearchFill } from 'react-icons/ri';
+import { PiHouseSimpleBold, PiHouseSimpleFill } from 'react-icons/pi';
 
 import { cn } from '@/lib/utils';
 

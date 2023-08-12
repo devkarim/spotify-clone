@@ -58,13 +58,13 @@ const Appbar: React.FC<AppbarProps> = ({ isSignedIn, name, imageUrl }) => {
           <>
             <button
               className="font-bold opacity-60 hover:opacity-100"
-              onClick={() => loginModal.onOpen('register')}
+              onClick={() => loginModal.show('register')}
             >
               Sign up
             </button>
             <button
               className="btn btn-secondary btn-rounded w-32"
-              onClick={() => loginModal.onOpen('login')}
+              onClick={() => loginModal.show('login')}
             >
               Log in
             </button>

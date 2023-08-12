@@ -1,8 +1,8 @@
 import { VscLibrary } from 'react-icons/vsc';
-import { FaPlus } from 'react-icons/fa';
 
 import SidebarCard from './sidebar-card';
 import Card from '../ui/card';
+import AddPlaylistButton from './add-playlist-button';
 
 interface SidebarLibraryProps {}
 
@@ -16,9 +16,7 @@ const SidebarLibrary: React.FC<SidebarLibraryProps> = ({}) => {
           </div>
           <p>Your Library</p>
         </div>
-        <button className="btn btn-circle btn-ghost opacity-60 hover:opacity-100 w-8 h-8 transition-opacity">
-          <FaPlus />
-        </button>
+        <AddPlaylistButton icon />
       </div>
       <Card className="space-y-6">
         <div className="space-y-2">
@@ -27,7 +25,7 @@ const SidebarLibrary: React.FC<SidebarLibraryProps> = ({}) => {
             Your Beats, Your Rules. Start making your playlist!
           </p>
         </div>
-        <button className="btn btn-secondary">Create playlist</button>
+        <AddPlaylistButton />
       </Card>
     </SidebarCard>
   );

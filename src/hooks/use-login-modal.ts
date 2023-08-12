@@ -6,8 +6,8 @@ type ModalStatus = 'login' | 'register';
 interface LoginModalState {
   isOpen: boolean;
   status: ModalStatus;
-  onOpen: (status?: ModalStatus) => void;
-  onClose: () => void;
+  show: (status?: ModalStatus) => void;
+  hide: () => void;
   setStatus: (status: ModalStatus) => void;
   toggleStatus: () => void;
 }
@@ -16,8 +16,8 @@ const useLoginModal = create<LoginModalState>()(
   devtools((set) => ({
     status: 'login',
     isOpen: false,
-    onOpen: (status = 'login') => set({ status, isOpen: true }),
-    onClose: () => set({ isOpen: false }),
+    show: (status = 'login') => set({ status, isOpen: true }),
+    hide: () => set({ isOpen: false }),
     toggleStatus: () =>
       set((state) => ({
         status: state.status === 'login' ? 'register' : 'login',

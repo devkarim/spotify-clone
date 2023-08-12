@@ -21,7 +21,7 @@ interface LoginModalProps {}
 
 const LoginModal: React.FC<LoginModalProps> = ({}) => {
   const [loading, setLoading] = useState(false);
-  const { isOpen, onClose, toggleStatus, status, setStatus } = useLoginModal();
+  const { isOpen, hide, toggleStatus, status, setStatus } = useLoginModal();
   const router = useRouter();
 
   const {
@@ -72,7 +72,7 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
     toast.success(`Successfully logged in!`);
     router.push('/');
     router.refresh();
-    onClose();
+    hide();
   };
 
   const signup = async (formData: AuthSchema) => {
@@ -86,7 +86,7 @@ const LoginModal: React.FC<LoginModalProps> = ({}) => {
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={hide}
       title={status == 'login' ? 'Sign In' : 'Sign Up'}
       subtitle={
         status == 'login'
