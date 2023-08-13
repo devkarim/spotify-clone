@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 
-import Sidebar from '@/components/sidebar/main-sidebar';
+import SidebarContent from '@/components/sidebar/sidebar-content';
 import LoginModal from '@/components/modals/login-modal';
 import PlaylistModal from '@/components/modals/playlist-modal';
 import AuthProvider from '@/components/providers/auth-provider';
@@ -29,7 +29,7 @@ export default async function RootLayout({
           <ToastProvider />
           <LoginModal />
           <PlaylistModal />
-          <Sidebar>{children}</Sidebar>
+          <SidebarContent>{children}</SidebarContent>
         </AuthProvider>
       </body>
     </html>
