@@ -7,7 +7,7 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({}) => {
   const currentHours = date.getHours();
 
   return (
-    <div className="text-4xl font-bold">
+    <div className="text-3xl lg:text-4xl font-bold">
       {currentHours < 12 ? (
         <h1>Good morning</h1>
       ) : currentHours < 18 ? (
