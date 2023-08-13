@@ -6,19 +6,35 @@ import { useRouter } from 'next/navigation';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
 import useLoginModal from '@/hooks/use-login-modal';
+import useScroll from '@/hooks/use-scroll';
+import { cn } from '@/lib/utils';
 
 interface NavbarProps {
   isSignedIn?: boolean;
   name?: string | null;
   imageUrl?: string | null;
+  className?: string;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ isSignedIn, name, imageUrl }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  isSignedIn,
+  name,
+  imageUrl,
+  className,
+}) => {
   const router = useRouter();
+  const offset = useScroll((state) => state.offset);
   const loginModal = useLoginModal();
 
   return (
-    <div className="flex justify-between sticky top-0 z-50 p-6">
+    <div
+      className={cn(
+        'flex justify-between sticky top-0 z-50 p-6 bg-opacity-0 transition-colors duration-300 backdrop-blur-lg',
+        offset > 25 && 'bg-opacity-30',
+        offset > 100 && 'bg-opacity-60',
+        className
+      )}
+    >
       <div className="flex gap-2">
         <button className="btn btn-circle bg-black">
           <MdArrowBackIos
