@@ -13,7 +13,7 @@ export const createPlaylist = (
     },
   });
 
-export const getPlaylistsByUser = (userId?: bigint) =>
+export const getUserPlaylists = (userId?: bigint) =>
   userId
     ? prisma.playlist.findMany({
         where: {
