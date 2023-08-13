@@ -10,6 +10,8 @@ const config: Config = {
     extend: {
       colors: {
         card: '#242424',
+        'section-card': '#181818',
+        'section-card-secondary': '#282828',
       },
     },
   },
