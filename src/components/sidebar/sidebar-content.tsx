@@ -21,11 +21,10 @@ const SidebarContent: React.FC<SidebarContentProps> = async ({ children }) => {
   return (
     <div className="flex">
       <Sidebar playlists={playlists} />
-      <div className="w-full max-h-screen lg:py-2">
+      <div className="relative w-full max-h-screen lg:py-2">
         <MainContainer
-          className={cn(
-            isSignedIn &&
-              'bg-gradient-to-b from-blue-800/40 bg-[length:100%_300px] rounded-lg'
+          headerClassName={cn(
+            isSignedIn && 'bg-gradient-to-b from-blue-800/40'
           )}
         >
           <Navbar

@@ -6,11 +6,14 @@ import { cn } from '@/lib/utils';
 import useScroll from '@/hooks/use-scroll';
 
 interface MainContainerProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  headerClassName?: string;
+}
 
 const MainContainer: React.FC<MainContainerProps> = ({
   children,
   className,
+  headerClassName,
   ...props
 }) => {
   const scroll = useScroll();
@@ -19,12 +22,13 @@ const MainContainer: React.FC<MainContainerProps> = ({
     <div
       onScroll={(e) => scroll.setOffset(e.currentTarget.scrollTop)}
       className={cn(
-        'bg-backgroundSecondary h-full w-full overflow-y-auto bg-no-repeat bg-local',
+        'relative bg-backgroundSecondary h-full w-full overflow-y-auto rounded-lg',
         className
       )}
       {...props}
     >
-      {children}
+      <div className={cn('absolute top-0 w-full h-64', headerClassName)} />
+      <div className="relative">{children}</div>
     </div>
   );
 };
