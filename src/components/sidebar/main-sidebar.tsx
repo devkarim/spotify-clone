@@ -8,6 +8,7 @@ import HomePlaylists from '@/components/playlist/home-playlists';
 
 import SidebarRoutes from './sidebar-routes';
 import SidebarLibrary from './sidebar-library';
+import WelcomeHeader from '../ui/welcome-header';
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -37,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ children }) => {
           >
             {isSignedIn && (
               <>
-                <h1 className="text-4xl font-bold">Good afternoon</h1>
+                <WelcomeHeader />
                 <HomePlaylists playlists={playlists} />
               </>
             )}
