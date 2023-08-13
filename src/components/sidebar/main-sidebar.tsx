@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import Navbar from '@/components/ui/navbar';
 import { getUser } from '@/services/server/session';
 import WelcomeHeader from '@/components/ui/welcome-header';
@@ -7,7 +8,6 @@ import HomePlaylists from '@/components/playlist/home-playlists';
 
 import SidebarRoutes from './sidebar-routes';
 import SidebarLibrary from './sidebar-library';
-import { cn } from '@/lib/utils';
 
 interface SidebarProps {
   children: React.ReactNode;
