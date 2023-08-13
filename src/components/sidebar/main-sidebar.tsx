@@ -1,11 +1,13 @@
 import { getServerSession } from 'next-auth';
 
+import { cn } from '@/lib/utils';
 import authOptions from '@/config/auth';
 import Appbar from '@/components/ui/appbar';
+import { getPlaylistsByUser } from '@/services/server/playlist';
+import HomePlaylists from '@/components/playlist/home-playlists';
 
 import SidebarRoutes from './sidebar-routes';
 import SidebarLibrary from './sidebar-library';
-import { getPlaylistsByUser } from '@/services/server/playlist';
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -14,6 +16,8 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = async ({ children }) => {
   const session = await getServerSession(authOptions);
   const playlists = await getPlaylistsByUser(session?.user.id);
+
+  const isSignedIn = session?.user.isAuthenticated;
 
   return (
     <div className="flex">
@@ -24,10 +28,20 @@ const Sidebar: React.FC<SidebarProps> = async ({ children }) => {
       <div className="w-full max-h-screen py-2">
         <div className="bg-backgroundSecondary h-full w-full overflow-y-auto space-y-4">
           <Appbar
-            isSignedIn={!!session?.user}
+            isSignedIn={isSignedIn}
             name={session?.user.name}
             imageUrl={session?.user.image}
-          />
+            parentClassName={cn({
+              'bg-gradient-to-b from-blue-800/40': isSignedIn,
+            })}
+          >
+            {isSignedIn && (
+              <>
+                <h1 className="text-4xl font-bold">Good afternoon</h1>
+                <HomePlaylists playlists={playlists} />
+              </>
+            )}
+          </Appbar>
           {children}
         </div>
       </div>
