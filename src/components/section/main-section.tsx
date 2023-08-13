@@ -10,7 +10,7 @@ interface SectionProps {
 const Section: React.FC<SectionProps> = ({ title, items }) => {
   return (
     <div className="space-y-6 rounded-md">
-      <h1 className="text-2xl font-bold">{title}</h1>
+      <h1 className="text-xl lg:text-2xl font-bold">{title}</h1>
       <SectionItemList items={items} />
     </div>
   );
