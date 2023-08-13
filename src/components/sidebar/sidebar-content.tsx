@@ -2,18 +2,17 @@ import { cn } from '@/lib/utils';
 import Navbar from '@/components/ui/navbar';
 import { getUser } from '@/services/server/session';
 import WelcomeHeader from '@/components/ui/welcome-header';
-import { getUserPlaylists } from '@/services/server/playlist';
 import MainContainer from '@/components/ui/main-container';
+import { getUserPlaylists } from '@/services/server/playlist';
 import HomePlaylists from '@/components/playlist/home-playlists';
 
-import SidebarRoutes from './sidebar-routes';
-import SidebarLibrary from './sidebar-library';
+import Sidebar from './sidebar';
 
-interface SidebarProps {
+interface SidebarContentProps {
   children: React.ReactNode;
 }
 
-const Sidebar: React.FC<SidebarProps> = async ({ children }) => {
+const SidebarContent: React.FC<SidebarContentProps> = async ({ children }) => {
   const user = await getUser();
   const playlists = await getUserPlaylists(user?.id);
 
@@ -21,14 +20,10 @@ const Sidebar: React.FC<SidebarProps> = async ({ children }) => {
 
   return (
     <div className="flex">
-      <div className="flex flex-col h-screen w-full max-w-sm space-y-2 p-2 font-semibold">
-        <SidebarRoutes />
-        <SidebarLibrary playlists={playlists} />
-      </div>
+      <Sidebar playlists={playlists} />
       <div className="w-full max-h-screen py-2">
         <MainContainer
           className={cn(
-            'bg-backgroundSecondary h-full w-full overflow-y-auto bg-no-repeat bg-local',
             isSignedIn &&
               'bg-gradient-to-b from-blue-800/40 bg-[length:100%_300px]'
           )}
@@ -52,4 +47,4 @@ const Sidebar: React.FC<SidebarProps> = async ({ children }) => {
   );
 };
 
-export default Sidebar;
+export default SidebarContent;
