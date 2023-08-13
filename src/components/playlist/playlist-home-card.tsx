@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { FaPlay } from 'react-icons/fa';
+
+import PlayButton from '@/components/ui/play-button';
 
 interface PlaylistHomeCardProps {
   name: string;
@@ -23,9 +24,7 @@ const PlaylistHomeCard: React.FC<PlaylistHomeCardProps> = ({
         </div>
         <p className="font-semibold text-lg">{name}</p>
       </div>
-      <button className="btn btn-primary btn-circle text-black m-4 opacity-0 group-hover:opacity-100 hover:scale-105 transition-opacity duration-300 h-12 w-12">
-        <FaPlay className="ml-1 text-lg" />
-      </button>
+      <PlayButton />
     </div>
   );
 };
