@@ -27,7 +27,7 @@ const Appbar: React.FC<AppbarProps> = ({
   const router = useRouter();
 
   return (
-    <div className={cn('p-6 space-y-4', parentClassName)}>
+    <div className={cn('p-6 space-y-6', parentClassName)}>
       <div className="flex justify-between">
         <div className="flex gap-2">
           <button className="btn btn-circle bg-black">
