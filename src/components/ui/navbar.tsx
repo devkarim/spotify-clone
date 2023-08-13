@@ -70,7 +70,7 @@ const Navbar: React.FC<NavbarProps> = ({
           </Link>
         </div>
       </div>
-      <div className="flex gap-8 items-center">
+      <div className="flex gap-6 items-center">
         <Link
           href="/premium"
           className="font-bold opacity-60 hover:opacity-100"
@@ -80,7 +80,7 @@ const Navbar: React.FC<NavbarProps> = ({
         <div className="divider divider-vertical before:bg-white after:bg-white m-0 h-8" />
         {isSignedIn ? (
           <span className="tooltip tooltip-left" data-tooltip={name || 'Guest'}>
-            <div className="relative avatar h-10 w-10">
+            <div className="relative avatar h-8 w-8">
               <Image
                 src={imageUrl || '/img/default-avatar.jpg'}
                 alt="profile-pic"
