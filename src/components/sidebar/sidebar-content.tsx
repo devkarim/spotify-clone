@@ -21,7 +21,7 @@ const SidebarContent: React.FC<SidebarContentProps> = async ({ children }) => {
   return (
     <div className="flex">
       <Sidebar playlists={playlists} />
-      <div className="w-full max-h-screen py-2">
+      <div className="w-full max-h-screen lg:py-2">
         <MainContainer
           className={cn(
             isSignedIn &&
