@@ -42,8 +42,6 @@ const HomePage: React.FC<HomePageProps> = async ({}) => {
           }))}
         />
       )}
-
-      <input />
     </div>
   );
 };
