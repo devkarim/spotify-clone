@@ -1,11 +1,13 @@
 import Navbar from '@/components/ui/navbar';
 import { getUser } from '@/services/server/session';
+import WelcomeHeader from '@/components/ui/welcome-header';
 import { getUserPlaylists } from '@/services/server/playlist';
+import MainContainer from '@/components/ui/main-container';
 import HomePlaylists from '@/components/playlist/home-playlists';
 
 import SidebarRoutes from './sidebar-routes';
 import SidebarLibrary from './sidebar-library';
-import WelcomeHeader from '../ui/welcome-header';
+import { cn } from '@/lib/utils';
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -24,11 +26,18 @@ const Sidebar: React.FC<SidebarProps> = async ({ children }) => {
         <SidebarLibrary playlists={playlists} />
       </div>
       <div className="w-full max-h-screen py-2">
-        <div className="bg-backgroundSecondary h-full w-full overflow-y-auto bg-gradient-to-b from-blue-800/40 bg-[length:100%_300px] bg-no-repeat bg-local">
+        <MainContainer
+          className={cn(
+            'bg-backgroundSecondary h-full w-full overflow-y-auto bg-no-repeat bg-local',
+            isSignedIn &&
+              'bg-gradient-to-b from-blue-800/40 bg-[length:100%_300px]'
+          )}
+        >
           <Navbar
             isSignedIn={isSignedIn}
             name={user?.name}
             imageUrl={user?.image}
+            className={cn('bg-primary', isSignedIn && 'bg-blue-950')}
           />
           {isSignedIn && (
             <div className="p-6 space-y-6">
@@ -37,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ children }) => {
             </div>
           )}
           {children}
-        </div>
+        </MainContainer>
       </div>
     </div>
   );
