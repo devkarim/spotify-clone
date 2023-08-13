@@ -8,7 +8,7 @@ interface SectionItemListProps {
 
 const SectionItemList: React.FC<SectionItemListProps> = ({ items }) => {
   return (
-    <div className="flex gap-6">
+    <div className="flex gap-6 flex-wrap">
       {items.map((item) => (
         <SectionItem key={item.title} {...item} />
       ))}
