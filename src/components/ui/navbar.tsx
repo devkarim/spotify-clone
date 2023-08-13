@@ -3,7 +3,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import {
+  MdArrowBackIos,
+  MdArrowForwardIos,
+  MdHome,
+  MdSearch,
+} from 'react-icons/md';
 
 import useLoginModal from '@/hooks/use-login-modal';
 import useScroll from '@/hooks/use-scroll';
@@ -35,19 +40,35 @@ const Navbar: React.FC<NavbarProps> = ({
         className
       )}
     >
-      <div className="flex gap-2">
-        <button className="btn btn-circle bg-black">
-          <MdArrowBackIos
-            className="ml-1 text-xl"
-            onClick={() => router.back()}
-          />
-        </button>
-        <button className="btn btn-circle bg-black">
-          <MdArrowForwardIos
-            className="ml-1 text-xl"
-            onClick={() => router.forward()}
-          />
-        </button>
+      <div>
+        <div className="space-x-2 hidden lg:block">
+          <button className="btn btn-circle bg-black">
+            <MdArrowBackIos
+              className="ml-1 text-xl"
+              onClick={() => router.back()}
+            />
+          </button>
+          <button className="btn btn-circle bg-black">
+            <MdArrowForwardIos
+              className="ml-1 text-xl"
+              onClick={() => router.forward()}
+            />
+          </button>
+        </div>
+        <div className="space-x-2 block lg:hidden">
+          <Link
+            href="/"
+            className="btn btn-circle bg-white text-black text-2xl"
+          >
+            <MdHome />
+          </Link>
+          <Link
+            href="/search"
+            className="btn btn-circle bg-white text-black text-2xl"
+          >
+            <MdSearch />
+          </Link>
+        </div>
       </div>
       <div className="flex gap-8 items-center">
         <Link
