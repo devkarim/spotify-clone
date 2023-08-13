@@ -80,7 +80,7 @@ const Navbar: React.FC<NavbarProps> = ({
         <div className="divider divider-vertical before:bg-white after:bg-white m-0 h-8" />
         {isSignedIn ? (
           <span className="tooltip tooltip-left" data-tooltip={name || 'Guest'}>
-            <div className="relative avatar h-8 w-8">
+            <div className="relative avatar h-8 w-8 ring-black ring-4">
               <Image
                 src={imageUrl || '/img/default-avatar.jpg'}
                 alt="profile-pic"
