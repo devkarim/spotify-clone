@@ -29,11 +29,17 @@ export const getUserPlaylist = (userId: bigint, id: bigint) =>
       userId,
       id,
     },
+    include: {
+      songs: true,
+    },
   });
 
 export const getPlaylistById = (id: bigint) =>
   prisma.playlist.findUnique({
     where: {
       id,
+    },
+    include: {
+      songs: true,
     },
   });
