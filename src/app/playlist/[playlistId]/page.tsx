@@ -24,7 +24,7 @@ const PlaylistPage: React.FC<PlaylistPageProps> = async ({
   if (!playlist) throw Errors.notFound;
 
   return (
-    <Container>
+    <Container className="space-y-8">
       <PlaylistHeader title={playlist.name} imageUrl={playlist.imageUrl} />
       <PlayButton />
     </Container>
