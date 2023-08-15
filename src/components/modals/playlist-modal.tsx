@@ -3,7 +3,7 @@
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import log from '@/lib/log';
@@ -11,7 +11,6 @@ import Response from '@/types/server';
 import { capatlize } from '@/lib/utils';
 import Modal from '@/components/ui/modal';
 import Input from '@/components/ui/input';
-import FileInput from '@/components/ui/file-input';
 import usePlaylistModal from '@/hooks/use-playlist-modal';
 import { createPlaylist } from '@/services/client/playlist';
 import { PlaylistSchema, playlistSchema } from '@/schemas/playlistSchema';
