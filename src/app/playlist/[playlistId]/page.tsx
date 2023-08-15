@@ -20,6 +20,8 @@ const PlaylistPage: React.FC<PlaylistPageProps> = async ({
 
   const playlist = await getUserPlaylist(user.id, id);
 
+  if (!playlist) throw Errors.notFound;
+
   return (
     <Container>
       <PlaylistHeader title={playlist.name} imageUrl={playlist.imageUrl} />
