@@ -22,3 +22,18 @@ export const getUserPlaylists = (userId?: bigint) =>
         orderBy: { updatedAt: 'desc' },
       })
     : [];
+
+export const getUserPlaylist = (userId: bigint, id: bigint) =>
+  prisma.playlist.findUnique({
+    where: {
+      userId,
+      id,
+    },
+  });
+
+export const getPlaylistById = (id: bigint) =>
+  prisma.playlist.findUnique({
+    where: {
+      id,
+    },
+  });
