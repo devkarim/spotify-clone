@@ -15,6 +15,7 @@ import FileInput from '@/components/ui/file-input';
 import usePlaylistModal from '@/hooks/use-playlist-modal';
 import { createPlaylist } from '@/services/client/playlist';
 import { PlaylistSchema, playlistSchema } from '@/schemas/playlistSchema';
+import ControlledFileInput from '../ui/controlled-file-input';
 
 interface PlaylistModalProps {
   name?: string;
@@ -95,25 +96,21 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({ name, imageUrl }) => {
             full
             {...register('name')}
           />
-          <Controller
+          <ControlledFileInput
             name="imageUrl"
-            control={control}
-            rules={{ required: true }}
-            render={({ field, fieldState: { error } }) => (
-              <FileInput
-                label="Playlist image"
-                className="min-w-full"
-                accept="image/png, image/gif, image/jpeg"
-                onUpload={() => setLoading(true)}
-                onUploadError={(err) => toast.error(Response.parseError(err))}
-                onDone={() => setLoading(false)}
-                onFinishUpload={(_, url) => field.onChange(url)}
-                error={error?.message}
-                disabled={loading}
-                full
-              />
-            )}
-          ></Controller>
+            controlProps={{
+              name: 'imageUrl',
+              control,
+              rules: { required: true },
+            }}
+            label="Playlist image"
+            className="min-w-full"
+            accept="image/png, image/gif, image/jpeg"
+            onUpload={() => setLoading(true)}
+            onDone={() => setLoading(false)}
+            disabled={loading}
+            full
+          />
         </form>
         <button
           className="btn btn-block rounded-md btn-primary"
