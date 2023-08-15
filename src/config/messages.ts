@@ -4,6 +4,7 @@ const Messages = {
     emailTaken: 'Email is already taken.',
     unauthenticated: 'Unauthenticated.',
     invalidId: 'Invalid id.',
+    notFound: 'Not found.',
   },
 } as const;
 
