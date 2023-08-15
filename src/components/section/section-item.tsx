@@ -32,7 +32,7 @@ const SectionItem: React.FC<SectionItemProps> = ({
           className="object-cover"
           fill
         />
-        <PlayButton className="absolute bottom-0 right-0" />
+        <PlayButton className="absolute bottom-0 right-0 opacity-0 group-hover:opacity-100" />
       </div>
       <h3 className="font-bold text-lg">{title}</h3>
       <p className="text-sm opacity-60">{subtitle}</p>
