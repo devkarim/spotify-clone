@@ -1,12 +1,10 @@
 import { cn } from '@/lib/utils';
 import Navbar from '@/components/ui/navbar';
 import { getUser } from '@/services/server/session';
-import WelcomeHeader from '@/components/ui/welcome-header';
 import MainContainer from '@/components/ui/main-container';
 import { getUserPlaylists } from '@/services/server/playlist';
-import HomePlaylists from '@/components/playlist/home-playlists';
 
-import Sidebar from './sidebar';
+import Sidebar from './main-sidebar';
 
 interface SidebarContentProps {
   children: React.ReactNode;
@@ -33,12 +31,6 @@ const SidebarContent: React.FC<SidebarContentProps> = async ({ children }) => {
             imageUrl={user?.image}
             className={cn('bg-primary', isSignedIn && 'bg-blue-950')}
           />
-          {isSignedIn && (
-            <div className="p-6 space-y-6">
-              <WelcomeHeader />
-              <HomePlaylists playlists={playlists} />
-            </div>
-          )}
           {children}
         </MainContainer>
       </div>
