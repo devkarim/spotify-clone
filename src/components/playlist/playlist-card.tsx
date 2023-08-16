@@ -1,12 +1,13 @@
 'use client';
 
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+
+import PlaylistImage from './playlist-image';
 
 interface PlaylistCardProps {
   id: bigint;
   name: string;
-  imageUrl: string;
+  imageUrl: string | null;
   songs?: number;
 }
 
@@ -24,12 +25,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
       onClick={() => router.push(`/playlist/${id}`)}
     >
       <div className="relative rounded-md overflow-hidden h-16 w-16">
-        <Image
-          src={imageUrl}
-          alt="playlist-card-image"
-          className="object-cover"
-          fill
-        />
+        <PlaylistImage imageUrl={imageUrl} emptyClassName="text-2xl" />
       </div>
       <div className="space-y-px">
         <h2>{name}</h2>

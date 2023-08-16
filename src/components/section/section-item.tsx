@@ -1,12 +1,11 @@
-import Image from 'next/image';
-
-import PlayButton from '../ui/play-button';
 import { cn } from '@/lib/utils';
+import PlayButton from '@/components/ui/play-button';
+import PlaylistImage from '@/components/playlist/playlist-image';
 
 interface SectionItemProps {
   title: string;
   subtitle: string;
-  imageUrl: string;
+  imageUrl: string | null;
   rounded?: boolean;
 }
 
@@ -26,12 +25,7 @@ const SectionItem: React.FC<SectionItemProps> = ({
           }
         )}
       >
-        <Image
-          src={imageUrl}
-          alt="section-item-image"
-          className="object-cover"
-          fill
-        />
+        <PlaylistImage imageUrl={imageUrl} emptyClassName="text-5xl" />
         <PlayButton className="absolute bottom-0 right-0 opacity-0 group-hover:opacity-100" />
       </div>
       <h3 className="font-bold text-lg">{title}</h3>
