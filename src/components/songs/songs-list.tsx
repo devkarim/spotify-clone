@@ -20,6 +20,7 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
             <tr>
               <th>#</th>
               <th>Title</th>
+              <th>Artist</th>
               <th>Album</th>
               <th>Date added</th>
             </tr>
@@ -29,6 +30,7 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
               <tr key={song.id.toString()}>
                 <th>{index + 1}</th>
                 <td>{song.name}</td>
+                <td>{song.artist || 'n/a'}</td>
                 <td>{song.album || 'n/a'}</td>
                 <td>{dayjs(song.createdAt).fromNow()}</td>
               </tr>
