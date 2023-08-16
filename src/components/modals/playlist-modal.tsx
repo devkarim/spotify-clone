@@ -1,9 +1,9 @@
 'use client';
 
 import { toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import log from '@/lib/log';
@@ -13,8 +13,8 @@ import Modal from '@/components/ui/modal';
 import Input from '@/components/ui/input';
 import usePlaylistModal from '@/hooks/use-playlist-modal';
 import { createPlaylist } from '@/services/client/playlist';
+import ControlledFileInput from '@/components/ui/controlled-file-input';
 import { PlaylistSchema, playlistSchema } from '@/schemas/playlistSchema';
-import ControlledFileInput from '../ui/controlled-file-input';
 
 interface PlaylistModalProps {
   name?: string;
@@ -60,7 +60,7 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({ name, imageUrl }) => {
   };
 
   const create = async (formData: PlaylistSchema) => {
-    const playlist = await createPlaylist(formData.name, formData.imageUrl);
+    const playlist = await createPlaylist(formData);
     toast.success(`Created playlist "${playlist.name}"`);
   };
 
@@ -102,9 +102,9 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({ name, imageUrl }) => {
               control,
               rules: { required: true },
             }}
-            label="Playlist image"
+            label="Playlist image (optional)"
             className="min-w-full"
-            accept="image/png, image/gif, image/jpeg"
+            accept="image/*"
             onUpload={() => setLoading(true)}
             onDone={() => setLoading(false)}
             disabled={loading}
