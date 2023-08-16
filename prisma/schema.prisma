@@ -15,17 +15,21 @@ enum ProviderName {
   GITHUB
 }
 
+enum PlaylistType {
+  CUSTOM
+  LIKED
+}
+
 model User {
-  id         BigInt     @id @default(autoincrement())
-  name       String?
-  email      String     @unique
-  password   String?
-  imageUrl   String?
-  providers  Provider[]
-  likedSongs Song[]
-  playlists  Playlist[]
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id        BigInt     @id @default(autoincrement())
+  name      String?
+  email     String     @unique
+  password  String?
+  imageUrl  String?
+  providers Provider[]
+  playlists Playlist[] @relation(name: "playlists")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Provider {
@@ -40,27 +44,26 @@ model Provider {
 }
 
 model Playlist {
-  id        BigInt   @id @default(autoincrement())
+  id        BigInt       @id @default(autoincrement())
   name      String
   imageUrl  String?
   songs     Song[]
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      PlaylistType @default(CUSTOM)
+  user      User         @relation(name: "playlists", fields: [userId], references: [id], onDelete: Cascade)
   userId    BigInt
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
 
 model Song {
-  id         BigInt    @id @default(autoincrement())
+  id         BigInt   @id @default(autoincrement())
   name       String
   songUrl    String
   imageUrl   String?
   artist     String?
   album      String?
-  user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     BigInt?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  playlist   Playlist? @relation(fields: [playlistId], references: [id])
-  playlistId BigInt?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  playlistId BigInt
 }
