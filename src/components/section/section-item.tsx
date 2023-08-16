@@ -26,7 +26,7 @@ const SectionItem: React.FC<SectionItemProps> = ({
         )}
       >
         <PlaylistImage imageUrl={imageUrl} emptyClassName="text-5xl" />
-        <PlayButton className="absolute bottom-0 right-0 opacity-0 group-hover:opacity-100" />
+        <PlayButton className="absolute bottom-0 right-0 opacity-0 group-hover:opacity-100 m-4" />
       </div>
       <h3 className="font-bold text-lg">{title}</h3>
       <p className="text-sm opacity-60">{subtitle}</p>

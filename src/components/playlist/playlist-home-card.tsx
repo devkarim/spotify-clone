@@ -19,7 +19,7 @@ const PlaylistHomeCard: React.FC<PlaylistHomeCardProps> = ({
         </div>
         <p className="font-semibold text-lg">{name}</p>
       </div>
-      <PlayButton className="opacity-0 group-hover:opacity-100" />
+      <PlayButton className="opacity-0 group-hover:opacity-100 m-4" />
     </div>
   );
 };
