@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-type ModalStatus = 'create' | 'edit';
+import { ModalStatus } from '@/types/ui';
 
 interface PlaylistModalState {
   isOpen: boolean;
