@@ -1,9 +1,9 @@
 import log from '@/lib/log';
-import Response from '@/types/server';
-import { playlistSchema } from '@/schemas/playlistSchema';
-import { getUser } from '@/services/server/session';
-import { createPlaylist } from '@/services/server/playlist';
 import Errors from '@/config/errors';
+import Response from '@/types/server';
+import { getUser } from '@/services/server/session';
+import { playlistSchema } from '@/schemas/playlistSchema';
+import { createPlaylist } from '@/services/server/playlist';
 
 export async function POST(req: Request) {
   const body = await req.json();
