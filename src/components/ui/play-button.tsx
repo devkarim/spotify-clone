@@ -17,12 +17,12 @@ const PlayButton: React.FC<PlayButtonProps> = ({ className, ...props }) => {
   return (
     <button
       className={cn(
-        'btn btn-primary btn-circle text-black m-4 hover:scale-105 transition-opacity duration-300 h-12 w-12',
+        'btn btn-primary btn-circle text-black hover:scale-105 transition-opacity duration-300 h-12 w-12 text-lg',
         className
       )}
       {...props}
     >
-      <FaPlay className="ml-1 text-lg" />
+      <FaPlay className="ml-1" />
     </button>
   );
 };
