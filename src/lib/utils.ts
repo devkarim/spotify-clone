@@ -26,3 +26,13 @@ export function toBigIntSafe(str: string) {
     return null;
   }
 }
+
+export function validateFile(file: File, resource_type: string) {
+  if (resource_type === 'image') {
+    return file.type.match('image/*');
+  }
+  if (resource_type === 'video') {
+    return file.type.match('video/*') || file.type.match('audio/*');
+  }
+  return true;
+}
