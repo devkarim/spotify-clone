@@ -26,7 +26,11 @@ const PlaylistPage: React.FC<PlaylistPageProps> = async ({
 
   return (
     <Container className="space-y-8">
-      <PlaylistHeader title={playlist.name} imageUrl={playlist.imageUrl} />
+      <PlaylistHeader
+        id={playlist.id}
+        title={playlist.name}
+        imageUrl={playlist.imageUrl}
+      />
       {playlist.songs.length != 0 && <PlayButton />}
       <SongsList songs={playlist.songs} />
     </Container>
