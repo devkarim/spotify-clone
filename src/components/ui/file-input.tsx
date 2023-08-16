@@ -1,10 +1,12 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 
-import upload from '@/services/client/cloudinary';
+import upload, { ResourceType } from '@/services/client/cloudinary';
 
 import Input, { InputProps } from './input';
+import log from '@/lib/log';
 
 interface FileInputProps extends InputProps {
+  resourceType?: ResourceType;
   onFinishUpload?: (name: string, url: string) => void;
   onUpload?: (file: File) => void;
   onUploadError?: (err: unknown) => void;
@@ -12,6 +14,7 @@ interface FileInputProps extends InputProps {
 }
 
 const FileInput: React.FC<FileInputProps> = ({
+  resourceType,
   onFinishUpload,
   onUpload,
   onUploadError,
@@ -19,6 +22,7 @@ const FileInput: React.FC<FileInputProps> = ({
   disabled,
   ...props
 }) => {
+  const ref = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,9 +31,13 @@ const FileInput: React.FC<FileInputProps> = ({
     onUpload?.(file);
     setLoading(true);
     try {
-      const url = await upload(file);
+      const url = await upload(file, resourceType);
       onFinishUpload?.(file.name, url);
     } catch (err) {
+      log.error(err, 'file-input');
+      if (ref && ref.current) {
+        ref.current.value = '';
+      }
       onUploadError?.(err);
     } finally {
       setLoading(false);
@@ -39,6 +47,7 @@ const FileInput: React.FC<FileInputProps> = ({
 
   return (
     <Input
+      ref={ref}
       type="file"
       file
       onChange={onChange}
