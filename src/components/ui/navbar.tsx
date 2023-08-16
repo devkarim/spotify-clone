@@ -42,18 +42,22 @@ const Navbar: React.FC<NavbarProps> = ({
     >
       <div>
         <div className="space-x-2 hidden lg:block">
-          <button className="btn btn-circle bg-black">
-            <MdArrowBackIos
-              className="ml-1 text-xl"
-              onClick={() => router.back()}
-            />
-          </button>
-          <button className="btn btn-circle bg-black">
-            <MdArrowForwardIos
-              className="ml-1 text-xl"
-              onClick={() => router.forward()}
-            />
-          </button>
+          <span className="tooltip tooltip-bottom" data-tooltip="Go back">
+            <button className="btn btn-circle bg-black">
+              <MdArrowBackIos
+                className="ml-1 text-xl"
+                onClick={() => router.back()}
+              />
+            </button>
+          </span>
+          <span className="tooltip tooltip-bottom" data-tooltip="Go forward">
+            <button className="btn btn-circle bg-black">
+              <MdArrowForwardIos
+                className="ml-1 text-xl"
+                onClick={() => router.forward()}
+              />
+            </button>
+          </span>
         </div>
         <div className="space-x-2 block lg:hidden">
           <Link
