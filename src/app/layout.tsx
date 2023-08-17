@@ -10,6 +10,7 @@ import PlaylistModal from '@/components/modals/playlist-modal';
 import AuthProvider from '@/components/providers/auth-provider';
 import ToastProvider from '@/components/providers/toast-provider';
 import SongModal from '@/components/modals/song-modal';
+import Player from '@/components/ui/player';
 
 const font = Figtree({ subsets: ['latin'] });
 

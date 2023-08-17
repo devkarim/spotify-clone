@@ -9,7 +9,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ playlists }) => {
   return (
-    <div className="hidden lg:flex flex-col h-screen w-full max-w-sm space-y-2 p-2 font-semibold">
+    <div className="hidden lg:flex flex-col w-full max-w-sm space-y-2 p-2 font-semibold">
       <SidebarRoutes />
       <SidebarLibrary playlists={playlists} />
     </div>
