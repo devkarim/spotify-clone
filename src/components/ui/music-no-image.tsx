@@ -2,11 +2,11 @@ import { FiMusic } from 'react-icons/fi';
 
 import { cn } from '@/lib/utils';
 
-interface PlaylistNoImageProps {
+interface MusicNoImageProps {
   className?: string;
 }
 
-const PlaylistNoImage: React.FC<PlaylistNoImageProps> = ({ className }) => {
+const MusicNoImage: React.FC<MusicNoImageProps> = ({ className }) => {
   return (
     <div className="flex justify-center items-center w-full h-full bg-section-card">
       <FiMusic className={cn('text-7xl opacity-60', className)} />
@@ -14,4 +14,4 @@ const PlaylistNoImage: React.FC<PlaylistNoImageProps> = ({ className }) => {
   );
 };
 
-export default PlaylistNoImage;
+export default MusicNoImage;

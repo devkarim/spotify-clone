@@ -2,15 +2,15 @@ import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
 
-import PlaylistNoImage from './playlist-no-image';
+import MusicNoImage from './music-no-image';
 
-interface PlaylistImageProps {
+interface MusicImageProps {
   imageUrl: string | null;
   className?: string;
   emptyClassName?: string;
 }
 
-const PlaylistImage: React.FC<PlaylistImageProps> = ({
+const MusicImage: React.FC<MusicImageProps> = ({
   imageUrl,
   className,
   emptyClassName,
@@ -18,13 +18,13 @@ const PlaylistImage: React.FC<PlaylistImageProps> = ({
   return imageUrl ? (
     <Image
       src={imageUrl}
-      alt="playlist-image"
+      alt="music-image"
       fill
       className={cn('object-cover select-none', className)}
     />
   ) : (
-    <PlaylistNoImage className={emptyClassName} />
+    <MusicNoImage className={emptyClassName} />
   );
 };
 
-export default PlaylistImage;
+export default MusicImage;

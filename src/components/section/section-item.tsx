@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 import PlayButton from '@/components/ui/play-button';
-import PlaylistImage from '@/components/playlist/playlist-image';
+import MusicImage from '@/components/ui/music-image';
 
 interface SectionItemProps {
   title: string;
@@ -25,7 +25,7 @@ const SectionItem: React.FC<SectionItemProps> = ({
           }
         )}
       >
-        <PlaylistImage imageUrl={imageUrl} emptyClassName="text-5xl" />
+        <MusicImage imageUrl={imageUrl} emptyClassName="text-5xl" />
         <PlayButton className="absolute bottom-0 right-0 opacity-0 group-hover:opacity-100 m-4" />
       </div>
       <h3 className="font-bold text-lg">{title}</h3>

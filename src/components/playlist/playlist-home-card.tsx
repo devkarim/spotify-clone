@@ -1,6 +1,6 @@
 import PlayButton from '@/components/ui/play-button';
 
-import PlaylistImage from './playlist-image';
+import MusicImage from '@/components/ui/music-image';
 
 interface PlaylistHomeCardProps {
   name: string;
@@ -15,7 +15,7 @@ const PlaylistHomeCard: React.FC<PlaylistHomeCardProps> = ({
     <div className="group flex h-24 bg-card/60 hover:bg-card/100 rounded-md overflow-hidden transition-colors duration-300 justify-between items-center cursor-pointer">
       <div className="flex gap-4 h-full items-center">
         <div className="relative h-full w-24">
-          <PlaylistImage imageUrl={imageUrl} emptyClassName="text-4xl" />
+          <MusicImage imageUrl={imageUrl} emptyClassName="text-4xl" />
         </div>
         <p className="font-semibold text-lg">{name}</p>
       </div>

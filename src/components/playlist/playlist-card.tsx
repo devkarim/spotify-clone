@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import PlaylistImage from './playlist-image';
+import MusicImage from '@/components/ui/music-image';
 
 interface PlaylistCardProps {
   id: bigint;
@@ -25,7 +25,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
       onClick={() => router.push(`/playlist/${id}`)}
     >
       <div className="relative rounded-md overflow-hidden h-16 w-16">
-        <PlaylistImage imageUrl={imageUrl} emptyClassName="text-2xl" />
+        <MusicImage imageUrl={imageUrl} emptyClassName="text-2xl" />
       </div>
       <div className="space-y-px">
         <h2>{name}</h2>
