@@ -1,6 +1,6 @@
 'use client';
 
-import { FaPlay } from 'react-icons/fa';
+import { FaPause, FaPlay } from 'react-icons/fa';
 import { DetailedHTMLProps, ButtonHTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
@@ -10,10 +10,14 @@ interface PlayButtonProps
     ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  onClick?: () => void;
+  isPlaying?: boolean;
 }
 
-const PlayButton: React.FC<PlayButtonProps> = ({ className, ...props }) => {
+const PlayButton: React.FC<PlayButtonProps> = ({
+  isPlaying,
+  className,
+  ...props
+}) => {
   return (
     <button
       className={cn(
@@ -22,7 +26,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({ className, ...props }) => {
       )}
       {...props}
     >
-      <FaPlay className="ml-1" />
+      {isPlaying ? <FaPause /> : <FaPlay className="ml-1" />}
     </button>
   );
 };
