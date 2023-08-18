@@ -2,7 +2,9 @@
 
 import dayjs from 'dayjs';
 import { FaPlay } from 'react-icons/fa';
+import { FaPause } from 'react-icons/fa6';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { useGlobalAudioPlayer } from 'react-use-audio-player';
 
 import { Song } from '@prisma/client';
 
@@ -16,10 +18,21 @@ interface SongRowProps {
 dayjs.extend(relativeTime);
 
 const SongRow: React.FC<SongRowProps> = ({ song, index }) => {
-  const player = usePlayer();
+  const setSong = usePlayer((state) => state.setSong);
+  const currentSong = usePlayer((state) => state.song);
+  const { play, playing, pause } = useGlobalAudioPlayer();
+  const isCurrentSong = currentSong?.id == song.id;
 
   const playSong = () => {
-    player.setSong(song);
+    if (isCurrentSong) {
+      if (playing) {
+        pause();
+      } else {
+        play();
+      }
+    } else {
+      setSong(song, song.playlistId);
+    }
   };
 
   return (
@@ -31,7 +44,7 @@ const SongRow: React.FC<SongRowProps> = ({ song, index }) => {
           data-tooltip={`Play ${song.name}`}
           onClick={playSong}
         >
-          <FaPlay />
+          {isCurrentSong && playing ? <FaPause /> : <FaPlay />}
         </span>
       </th>
       <td>{song.name}</td>
