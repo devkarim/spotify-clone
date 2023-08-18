@@ -42,25 +42,33 @@ const PlayerSlider: React.FC<PlayerSliderProps> = () => {
   }, [isLoading]);
 
   return (
-    <div className="flex items-center gap-4 w-full">
-      <p className="opacity-60 text-sm">
-        {dayjs.duration(pos, 'seconds').format('mm:ss')}
-      </p>
-      <PlayerRange
+    <>
+      <div className="flex items-center gap-4 w-full">
+        <p className="hidden lg:block opacity-60 text-sm">
+          {dayjs.duration(pos, 'seconds').format('mm:ss')}
+        </p>
+        <PlayerRange
+          value={pos}
+          max={duration}
+          className="hidden lg:block"
+          setValue={(newPos) => setPos(newPos)}
+          onChangeStart={() => setIsChanging(true)}
+          onChangeDone={(newPos) => {
+            setIsChanging(false);
+            player.setPos(newPos);
+            seek(newPos);
+          }}
+        />
+        <p className="hidden lg:block opacity-60 text-sm">
+          {dayjs.duration(duration, 'seconds').format('mm:ss')}
+        </p>
+      </div>
+      <progress
+        className="progress progress-xs progress-secondary lg:hidden fixed -bottom-px left-0 w-full"
         value={pos}
         max={duration}
-        setValue={(newPos) => setPos(newPos)}
-        onChangeStart={() => setIsChanging(true)}
-        onChangeDone={(newPos) => {
-          setIsChanging(false);
-          player.setPos(newPos);
-          seek(newPos);
-        }}
       />
-      <p className="opacity-60 text-sm">
-        {dayjs.duration(duration, 'seconds').format('mm:ss')}
-      </p>
-    </div>
+    </>
   );
 };
 

@@ -76,7 +76,7 @@ const Player: React.FC<PlayerProps> = ({}) => {
           <p className="text-xs opacity-60">{song.artist}</p>
         </div>
       </div>
-      <div className="flex flex-col items-center gap-3 absolute self-center left-1/2 -translate-x-1/2 w-full max-w-2xl">
+      <div className="flex flex-col items-center gap-3 absolute self-center right-6 lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-2xl">
         <PlayerControl />
         <PlayerSlider />
       </div>

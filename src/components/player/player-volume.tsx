@@ -14,7 +14,7 @@ const PlayerVolume: React.FC<PlayerVolumeProps> = () => {
   const setPlayerVolume = usePlayer((state) => state.setVolume);
 
   return (
-    <div className="flex gap-2 self-center absolute right-6">
+    <div className="hidden lg:flex gap-2 self-center absolute right-6">
       {
         <span
           className="tooltip tooltip-top"

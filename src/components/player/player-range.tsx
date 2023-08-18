@@ -27,7 +27,7 @@ const PlayerRange: React.FC<PlayerRangeProps> = ({
     <input
       type="range"
       className={cn(
-        'range range-secondary hover:range-primary w-full',
+        'range range-secondary hover:range-primary w-full [&::-webkit-slider-thumb]:hover:bg-primary',
         className
       )}
       value={value}

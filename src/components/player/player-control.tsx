@@ -41,7 +41,10 @@ const PlayerControl: React.FC<PlayerControlProps> = ({}) => {
 
   return (
     <div className="flex items-center gap-6 text-2xl">
-      <span className="tooltip tooltip-top" data-tooltip="Back">
+      <span
+        className="tooltip tooltip-top hidden lg:inline"
+        data-tooltip="Back"
+      >
         <FaBackwardStep
           className="opacity-80 hover:opacity-100"
           onClick={prevSong}
@@ -55,7 +58,10 @@ const PlayerControl: React.FC<PlayerControlProps> = ({}) => {
           className="h-8 w-8 text-xs btn-secondary cursor-default"
         />
       </span>
-      <span className="tooltip tooltip-top" data-tooltip="Next">
+      <span
+        className="tooltip tooltip-top hidden lg:inline"
+        data-tooltip="Next"
+      >
         <FaForwardStep
           className="opacity-80 hover:opacity-100"
           onClick={nextSong}
