@@ -2,10 +2,11 @@ import Errors from '@/config/errors';
 import { toBigInt } from '@/lib/utils';
 import Container from '@/components/ui/container';
 import { getUser } from '@/services/server/session';
-import PlayButton from '@/components/ui/play-button';
-import PlaylistHeader from './components/playlist-header';
-import { getUserPlaylist } from '@/services/server/playlist';
 import SongsList from '@/components/songs/songs-list';
+import { getUserPlaylist } from '@/services/server/playlist';
+import PlaylistPlayButton from '@/components/player/playlist-play-button';
+
+import PlaylistHeader from './components/playlist-header';
 
 interface PlaylistPageProps {
   params: { playlistId: string };
@@ -31,7 +32,12 @@ const PlaylistPage: React.FC<PlaylistPageProps> = async ({
         title={playlist.name}
         imageUrl={playlist.imageUrl}
       />
-      {playlist.songs.length != 0 && <PlayButton />}
+      {playlist.songs.length != 0 && (
+        <PlaylistPlayButton
+          playlistId={playlist.id}
+          firstSong={playlist.songs[0]}
+        />
+      )}
       <SongsList songs={playlist.songs} />
     </Container>
   );
