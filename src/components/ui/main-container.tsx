@@ -35,7 +35,8 @@ const MainContainer: React.FC<MainContainerProps> = ({
         className={cn(
           'absolute top-0 w-full h-64',
           isSignedIn && 'bg-gradient-to-b from-blue-800/40',
-          pathname.startsWith('/playlist') &&
+          isSignedIn &&
+            pathname.startsWith('/playlist') &&
             'bg-gradient-to-b from-emerald-800/70',
           headerClassName
         )}
