@@ -1,17 +1,11 @@
 'use client';
 
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-
 import { Song } from '@prisma/client';
-import { FaPlay } from 'react-icons/fa';
 import SongRow from './song-row';
 
 interface SongsListProps {
   songs: Song[];
 }
-
-dayjs.extend(relativeTime);
 
 const SongsList: React.FC<SongsListProps> = ({ songs }) => {
   return (
