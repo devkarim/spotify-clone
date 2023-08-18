@@ -16,24 +16,27 @@ import PlayerControl from './player-control';
 interface PlayerProps {}
 
 const Player: React.FC<PlayerProps> = ({}) => {
-  const { song, shouldPlay, volume, playlistId, playNextSong } = usePlayer(
-    ({
-      song,
-      shouldPlay,
-      setShouldPlay,
-      volume,
-      playlistId,
-      playNextSong,
-    }) => ({
-      song,
-      shouldPlay,
-      setShouldPlay,
-      volume,
-      playlistId,
-      playNextSong,
-    }),
-    shallow
-  );
+  const { song, shouldPlay, volume, playlistId, playNextSong, playingId } =
+    usePlayer(
+      ({
+        song,
+        shouldPlay,
+        setShouldPlay,
+        volume,
+        playlistId,
+        playNextSong,
+        playingId,
+      }) => ({
+        song,
+        shouldPlay,
+        setShouldPlay,
+        volume,
+        playlistId,
+        playNextSong,
+        playingId,
+      }),
+      shallow
+    );
   const fetchPlaylist = usePlaylist((state) => state.fetch);
   const playlist = usePlaylist((state) => state.playlist);
   const [isMounted, setIsMounted] = useState(false);
@@ -51,7 +54,7 @@ const Player: React.FC<PlayerProps> = ({}) => {
     });
     setVolume(volume);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [load, playlist, song]);
+  }, [load, playlist, playingId, song]);
 
   useEffect(() => {
     if (!playlistId) return;

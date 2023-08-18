@@ -1,5 +1,6 @@
 import { createWithEqualityFn } from 'zustand/traditional';
 import { devtools, persist } from 'zustand/middleware';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Song } from '@prisma/client';
 
@@ -9,6 +10,7 @@ interface PlayerState {
   pos: number;
   volume: number;
   shouldPlay: boolean;
+  playingId?: string;
   setSong: (song: Song, playlistId?: bigint) => void;
   setPlaylistId: (playlistId: bigint) => void;
   setPos: (pos: number) => void;
@@ -26,7 +28,13 @@ const usePlayer = createWithEqualityFn(
       pos: 0,
       volume: 1,
       setSong: (song: Song, playlistId) =>
-        set(() => ({ song, playlistId, shouldPlay: true, pos: 0 })),
+        set(() => ({
+          song,
+          playlistId,
+          shouldPlay: true,
+          pos: 0,
+          playingId: uuidv4(),
+        })),
       setPlaylistId: (playlistId: bigint) => set(() => ({ playlistId })),
       setPos: (pos: number) => set(() => ({ pos })),
       setVolume: (volume: number) => set(() => ({ volume })),
