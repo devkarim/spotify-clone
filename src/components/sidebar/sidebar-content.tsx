@@ -32,7 +32,7 @@ const SidebarContent: React.FC<SidebarContentProps> = async ({ children }) => {
           </MainContainer>
         </div>
       </div>
-      <Player />
+      {isSignedIn && <Player />}
     </div>
   );
 };
