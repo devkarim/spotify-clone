@@ -1,13 +1,14 @@
-import PlayButton from '@/components/ui/play-button';
-
 import MusicImage from '@/components/ui/music-image';
+import PlaylistPlayButton from '../player/playlist-play-button';
 
 interface PlaylistHomeCardProps {
+  playlistId: bigint;
   name: string;
   imageUrl: string | null;
 }
 
 const PlaylistHomeCard: React.FC<PlaylistHomeCardProps> = ({
+  playlistId,
   name,
   imageUrl,
 }) => {
@@ -19,7 +20,10 @@ const PlaylistHomeCard: React.FC<PlaylistHomeCardProps> = ({
         </div>
         <p className="font-semibold text-lg">{name}</p>
       </div>
-      <PlayButton className="opacity-0 group-hover:opacity-100 m-4" />
+      <PlaylistPlayButton
+        playlistId={playlistId}
+        className="opacity-0 group-hover:opacity-100 m-4"
+      />
     </div>
   );
 };
