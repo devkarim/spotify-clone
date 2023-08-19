@@ -43,14 +43,13 @@ const PlayerSlider: React.FC<PlayerSliderProps> = () => {
 
   return (
     <>
-      <div className="flex items-center gap-4 w-full">
-        <p className="hidden lg:block opacity-60 text-sm">
+      <div className="hidden lg:flex items-center gap-4 w-full">
+        <p className="opacity-60 text-sm">
           {dayjs.duration(pos, 'seconds').format('mm:ss')}
         </p>
         <PlayerRange
           value={pos}
           max={duration}
-          className="hidden lg:block"
           setValue={(newPos) => setPos(newPos)}
           onChangeStart={() => setIsChanging(true)}
           onChangeDone={(newPos) => {
@@ -59,7 +58,7 @@ const PlayerSlider: React.FC<PlayerSliderProps> = () => {
             seek(newPos);
           }}
         />
-        <p className="hidden lg:block opacity-60 text-sm">
+        <p className="opacity-60 text-sm">
           {dayjs.duration(duration, 'seconds').format('mm:ss')}
         </p>
       </div>
