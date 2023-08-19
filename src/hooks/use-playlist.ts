@@ -8,7 +8,7 @@ interface PlaylistState {
   isLoading: boolean;
   fetched: boolean;
   playlist?: FullPlaylist;
-  fetch: (playlistId: bigint) => Promise<void>;
+  fetch: (playlistId: bigint) => Promise<FullPlaylist>;
   refresh: () => Promise<void>;
 }
 
@@ -20,6 +20,7 @@ const usePlaylist = create<PlaylistState>()(
       set({ isLoading: true, fetched: false });
       const playlist = await getUserPlaylist(playlistId);
       set({ isLoading: false, fetched: true, playlist });
+      return playlist;
     },
     refresh: async () => {
       const playlist = get().playlist;
