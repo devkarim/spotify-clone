@@ -43,3 +43,26 @@ export const getPlaylistById = (id: bigint) =>
       songs: true,
     },
   });
+
+export const updatePlaylistLastPlayed = (userId: bigint, id: bigint) =>
+  prisma.playlist.update({
+    where: { id, userId },
+    data: { lastPlayedAt: new Date() },
+  });
+
+export const getLastPlayedPlaylists = (userId?: bigint) =>
+  userId
+    ? prisma.playlist.findMany({
+        where: {
+          userId,
+          lastPlayedAt: {
+            not: null,
+          },
+        },
+        orderBy: {
+          lastPlayedAt: 'desc',
+        },
+        include: { _count: { select: { songs: true } } },
+        take: 5,
+      })
+    : [];
