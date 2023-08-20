@@ -1,12 +1,11 @@
-import Image from 'next/image';
+import Image, { ImageProps } from 'next/image';
 
 import { cn } from '@/lib/utils';
 
 import MusicNoImage from './music-no-image';
 
-interface MusicImageProps {
+interface MusicImageProps extends Omit<ImageProps, 'src' | 'alt'> {
   imageUrl: string | null;
-  className?: string;
   emptyClassName?: string;
 }
 
@@ -14,6 +13,7 @@ const MusicImage: React.FC<MusicImageProps> = ({
   imageUrl,
   className,
   emptyClassName,
+  ...props
 }) => {
   return imageUrl ? (
     <Image
@@ -21,6 +21,7 @@ const MusicImage: React.FC<MusicImageProps> = ({
       alt="music-image"
       fill
       className={cn('object-cover select-none', className)}
+      {...props}
     />
   ) : (
     <MusicNoImage className={emptyClassName} />
