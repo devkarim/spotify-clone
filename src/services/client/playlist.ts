@@ -1,7 +1,8 @@
 import { Playlist } from '@prisma/client';
+
 import { FullPlaylist } from '@/types/db';
-import { BaseResponse } from '@/types/api';
 import { PlaylistSchema } from '@/schemas/playlistSchema';
+import { BaseResponse, BaseResponseNoData } from '@/types/api';
 
 import client from './axios';
 
@@ -17,3 +18,11 @@ export const getUserPlaylist = async (playlistId: bigint) => {
     .get<FullPlaylistResponse>(`/playlist/${playlistId}`)
     .then((res) => res.data.data);
 };
+
+export const updatePlaylistLastPlayed = (playlistId: bigint) =>
+  client.patch<BaseResponseNoData>(`/playlist/${playlistId}/last-played`);
+
+export const getLastPlayedPlaylists = () =>
+  client
+    .get<BaseResponse<Playlist[]>>('/playlist/last-played')
+    .then((res) => res.data.data);
