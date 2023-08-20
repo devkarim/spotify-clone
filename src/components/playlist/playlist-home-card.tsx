@@ -5,16 +5,21 @@ interface PlaylistHomeCardProps {
   playlistId: bigint;
   name: string;
   imageUrl: string | null;
+  onParentClick?: () => void;
 }
 
 const PlaylistHomeCard: React.FC<PlaylistHomeCardProps> = ({
   playlistId,
   name,
   imageUrl,
+  onParentClick,
 }) => {
   return (
-    <div className="group flex h-24 bg-card/60 hover:bg-card/100 rounded-md overflow-hidden transition-colors duration-300 justify-between items-center cursor-pointer">
-      <div className="flex gap-4 h-full items-center">
+    <div
+      className="group flex h-24 bg-card/60 hover:bg-card/100 rounded-md overflow-hidden transition-colors duration-300 justify-between items-center cursor-pointer"
+      onClick={(e) => e.target == e.currentTarget && onParentClick?.()}
+    >
+      <div className="flex gap-4 h-full items-center" onClick={onParentClick}>
         <div className="relative h-full w-24">
           <MusicImage imageUrl={imageUrl} emptyClassName="text-4xl" />
         </div>
