@@ -1,10 +1,12 @@
 import { Playlist } from '@prisma/client';
 
+import { PlaylsitWithSongCount } from '@/types/db';
+
 import SidebarRoutes from './sidebar-routes';
 import SidebarLibrary from './sidebar-library';
 
 interface SidebarProps {
-  playlists: Playlist[];
+  playlists: PlaylsitWithSongCount[];
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ playlists }) => {

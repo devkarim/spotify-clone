@@ -1,15 +1,14 @@
 import { VscLibrary } from 'react-icons/vsc';
 
-import { Playlist } from '@prisma/client';
-
 import Card from '@/components/ui/card';
+import { PlaylsitWithSongCount } from '@/types/db';
 import PlaylistCard from '@/components/playlist/playlist-card';
 
 import SidebarCard from './sidebar-card';
 import AddPlaylistButton from './add-playlist-button';
 
 interface SidebarLibraryProps {
-  playlists?: Playlist[];
+  playlists?: PlaylsitWithSongCount[];
 }
 
 const SidebarLibrary: React.FC<SidebarLibraryProps> = async ({
@@ -45,6 +44,7 @@ const SidebarLibrary: React.FC<SidebarLibraryProps> = async ({
               id={p.id}
               name={p.name}
               imageUrl={p.imageUrl}
+              songs={p._count.songs}
             />
           ))}
         </div>
