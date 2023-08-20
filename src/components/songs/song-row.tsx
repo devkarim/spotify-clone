@@ -41,7 +41,9 @@ const SongRow: React.FC<SongRowProps> = ({ song, index }) => {
         <p className="group-hover:hidden">{index + 1}</p>
         <span
           className="absolute bottom-5 hidden group-hover:block tooltip tooltip-right"
-          data-tooltip={`Play ${song.name}`}
+          data-tooltip={`${isCurrentSong && playing ? 'Pause' : 'Play'} ${
+            song.name
+          }`}
           onClick={playSong}
         >
           {isCurrentSong && playing ? <FaPause /> : <FaPlay />}
