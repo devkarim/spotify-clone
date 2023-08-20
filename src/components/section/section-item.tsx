@@ -1,22 +1,25 @@
 import { cn } from '@/lib/utils';
-import PlayButton from '@/components/ui/play-button';
+import { Item } from '@/types/ui';
 import MusicImage from '@/components/ui/music-image';
+import SongPlayButton from '@/components/player/song-play-button';
+import PlaylistPlayButton from '@/components/player/playlist-play-button';
 
 interface SectionItemProps {
-  title: string;
-  subtitle: string;
-  imageUrl: string | null;
+  item: Item;
+  onParentClick?: () => void;
   rounded?: boolean;
 }
 
 const SectionItem: React.FC<SectionItemProps> = ({
-  title,
-  subtitle,
-  imageUrl,
+  item: { title, subtitle, imageUrl, song, playlist },
+  onParentClick,
   rounded = false,
 }) => {
   return (
-    <div className="group bg-section-card w-full lg:w-fit p-6 rounded-md space-y-2 cursor-pointer hover:bg-section-card-secondary transition-colors">
+    <div
+      className="group bg-section-card w-full lg:w-52 p-6 rounded-md space-y-2 cursor-pointer hover:bg-section-card-secondary transition-colors"
+      onClick={(e) => e.target == e.currentTarget && onParentClick?.()}
+    >
       <div
         className={cn(
           'relative h-40 w-full lg:w-40 rounded-md overflow-hidden',
@@ -24,12 +27,29 @@ const SectionItem: React.FC<SectionItemProps> = ({
             'rounded-full': rounded,
           }
         )}
+        onClick={(e) => e.target == e.currentTarget && onParentClick?.()}
       >
-        <MusicImage imageUrl={imageUrl} emptyClassName="text-5xl" />
-        <PlayButton className="absolute bottom-0 right-0 opacity-0 group-hover:opacity-100 m-4" />
+        <MusicImage
+          imageUrl={imageUrl}
+          emptyClassName="text-5xl"
+          onClick={(e) => e.target == e.currentTarget && onParentClick?.()}
+        />
+        {playlist ? (
+          <PlaylistPlayButton
+            playlistId={playlist.id}
+            className="absolute bottom-0 right-0 opacity-0 group-hover:opacity-100 m-4"
+          />
+        ) : song ? (
+          <SongPlayButton
+            song={song}
+            className="absolute bottom-0 right-0 opacity-0 group-hover:opacity-100 m-4"
+          />
+        ) : null}
       </div>
-      <h3 className="font-bold text-lg">{title}</h3>
-      <p className="text-sm opacity-60">{subtitle}</p>
+      <div onClick={onParentClick}>
+        <h3 className="font-bold text-lg">{title}</h3>
+        <p className="text-sm opacity-60">{subtitle}</p>
+      </div>
     </div>
   );
 };
