@@ -7,16 +7,17 @@ import usePlayer from '@/hooks/use-player';
 import PlayButton from '@/components/ui/play-button';
 import usePlaylist from '@/hooks/use-playlist';
 
-interface PlaylistPlayButtonProps {
+interface PlaylistPlayButtonProps
+  extends React.HTMLAttributes<HTMLButtonElement> {
   playlistId: bigint;
   firstSong?: Song | null;
-  className?: string;
 }
 
 const PlaylistPlayButton: React.FC<PlaylistPlayButtonProps> = ({
   playlistId,
   firstSong,
   className,
+  ...props
 }) => {
   const currentPlaylistId = usePlayer((state) => state.playlistId);
   const setSong = usePlayer((state) => state.setSong);
@@ -48,6 +49,7 @@ const PlaylistPlayButton: React.FC<PlaylistPlayButtonProps> = ({
       isPlaying={isCurrentPlaylist && playing}
       onClick={playPlaylist}
       className={className}
+      {...props}
     />
   );
 };
