@@ -20,6 +20,7 @@ export const getUserPlaylists = (userId?: bigint) =>
           userId,
         },
         orderBy: { updatedAt: 'desc' },
+        include: { _count: { select: { songs: true } } },
       })
     : [];
 
