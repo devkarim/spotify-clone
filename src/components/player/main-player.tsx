@@ -1,6 +1,7 @@
 'use client';
 
 import { shallow } from 'zustand/shallow';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useGlobalAudioPlayer } from 'react-use-audio-player';
 
@@ -8,6 +9,8 @@ import log from '@/lib/log';
 import usePlayer from '@/hooks/use-player';
 import usePlaylist from '@/hooks/use-playlist';
 import MusicImage from '@/components/ui/music-image';
+import { updateSongLastPlayed } from '@/services/client/song';
+import { updatePlaylistLastPlayed } from '@/services/client/playlist';
 
 import PlayerVolume from './player-volume';
 import PlayerSlider from './player-slider';
@@ -41,6 +44,7 @@ const Player: React.FC<PlayerProps> = ({}) => {
   const playlist = usePlaylist((state) => state.playlist);
   const [isMounted, setIsMounted] = useState(false);
   const { load, setVolume } = useGlobalAudioPlayer();
+  const router = useRouter();
 
   useEffect(() => {
     if (!isMounted) setIsMounted(true);
@@ -60,8 +64,25 @@ const Player: React.FC<PlayerProps> = ({}) => {
     if (!playlistId) return;
     log.info(`fetch ${playlistId} playlist}`, 'main-player');
     fetchPlaylist(playlistId);
+    updateLastPlayed(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlistId]);
+
+  useEffect(() => {
+    updateLastPlayed();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playingId]);
+
+  const updateLastPlayed = async (isPlaylist?: boolean) => {
+    if (isPlaylist) {
+      if (!playlistId) return;
+      await updatePlaylistLastPlayed(playlistId);
+    } else {
+      if (!playingId || !song) return;
+      await updateSongLastPlayed(song.id);
+    }
+    router.refresh();
+  };
 
   if (!song || !isMounted) return null;
 
