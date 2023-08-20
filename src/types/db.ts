@@ -5,3 +5,13 @@ export type FullPlaylist = Prisma.PlaylistGetPayload<{
     songs: true;
   };
 }>;
+
+export type PlaylsitWithSongCount = Prisma.PlaylistGetPayload<{
+  include: {
+    _count: {
+      select: {
+        songs: true;
+      };
+    };
+  };
+}>;
