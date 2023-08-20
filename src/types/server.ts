@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import ServerError from './error';
 
 class Response {
-  static success<T>(data: T) {
+  static success<T>(data?: T) {
     return NextResponse.json({ success: true, data }, { status: 200 });
   }
 
