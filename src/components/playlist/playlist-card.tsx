@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 
-import { cn, toBigInt } from '@/lib/utils';
+import { cn, toBigIntSafe } from '@/lib/utils';
 import MusicImage from '@/components/ui/music-image';
 
 interface PlaylistCardProps {
@@ -21,7 +21,9 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
   const router = useRouter();
   const { playlistId } = useParams();
   const isCurrentPlaylist =
-    toBigInt(typeof playlistId == 'string' ? playlistId : playlistId[0]) == id;
+    playlistId &&
+    toBigIntSafe(typeof playlistId == 'string' ? playlistId : playlistId[0]) ==
+      id;
 
   return (
     <div
