@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
+import { Song } from '@prisma/client';
+
 import { FullPlaylist } from '@/types/db';
 import { getUserPlaylist } from '@/services/client/playlist';
 
@@ -10,6 +12,8 @@ interface PlaylistState {
   playlist?: FullPlaylist;
   fetch: (playlistId: bigint) => Promise<FullPlaylist>;
   refresh: () => Promise<void>;
+  addSong: (song: Song) => void;
+  updateSong: (song: Song) => void;
 }
 
 const usePlaylist = create<PlaylistState>()(
@@ -26,6 +30,17 @@ const usePlaylist = create<PlaylistState>()(
       const playlist = get().playlist;
       if (!playlist) return;
       await get().fetch(playlist.id);
+    },
+    addSong: (song) => {
+      const playlist = get().playlist;
+      if (!playlist || playlist.id != song.playlistId) return;
+      set({ playlist: { ...playlist, songs: [...playlist.songs, song] } });
+    },
+    updateSong: (song) => {
+      const playlist = get().playlist;
+      if (!playlist || playlist.id != song.playlistId) return;
+      const songs = playlist.songs.map((s) => (s.id === song.id ? song : s));
+      set({ playlist: { ...playlist, songs } });
     },
   }))
 );
