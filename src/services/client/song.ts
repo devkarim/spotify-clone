@@ -1,6 +1,6 @@
 import { Song } from '@prisma/client';
-import { BaseResponse, BaseResponseNoData } from '@/types/api';
 import { SongSchema } from '@/schemas/songSchema';
+import { BaseResponse, BaseResponseNoData } from '@/types/api';
 
 import client from './axios';
 
@@ -13,6 +13,9 @@ export const createSong = (playlistId: bigint, data: SongSchema) =>
 
 export const editSong = (id: bigint, data: SongSchema) =>
   client.patch<SongResponse>(`/song/${id}`, data).then((res) => res.data.data);
+
+export const deleteSong = (id: bigint) =>
+  client.delete<BaseResponseNoData>(`/song/${id}`).then((res) => res.data);
 
 export const updateSongLastPlayed = (songId: bigint) =>
   client.patch<BaseResponseNoData>(`/song/${songId}/last-played`);
