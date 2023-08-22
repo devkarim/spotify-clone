@@ -14,6 +14,7 @@ interface PlaylistState {
   refresh: () => Promise<void>;
   addSong: (song: Song) => void;
   updateSong: (song: Song) => void;
+  removeSong: (playlistId: bigint, songId: bigint) => void;
 }
 
 const usePlaylist = create<PlaylistState>()(
@@ -40,6 +41,12 @@ const usePlaylist = create<PlaylistState>()(
       const playlist = get().playlist;
       if (!playlist || playlist.id != song.playlistId) return;
       const songs = playlist.songs.map((s) => (s.id === song.id ? song : s));
+      set({ playlist: { ...playlist, songs } });
+    },
+    removeSong: (playlistId, songId) => {
+      const playlist = get().playlist;
+      if (!playlist || playlist.id != playlistId) return;
+      const songs = playlist.songs.filter((s) => s.id !== songId);
       set({ playlist: { ...playlist, songs } });
     },
   }))
