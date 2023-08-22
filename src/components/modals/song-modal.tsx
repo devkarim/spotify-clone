@@ -12,29 +12,18 @@ import { capatlize } from '@/lib/utils';
 import Modal from '@/components/ui/modal';
 import Input from '@/components/ui/input';
 import useSongModal from '@/hooks/use-song-modal';
-import { createSong } from '@/services/client/song';
+import { createSong, editSong } from '@/services/client/song';
 import { SongSchema, songSchema } from '@/schemas/songSchema';
 import ControlledFileInput from '@/components/ui/controlled-file-input';
 import Errors from '@/config/errors';
 
-interface SongModalProps {
-  name?: string;
-  artist?: string;
-  album?: string;
-  songUrl?: string;
-  imageUrl?: string;
-}
+interface SongModalProps {}
 
-const SongModal: React.FC<SongModalProps> = ({
-  name,
-  artist,
-  album,
-  songUrl,
-  imageUrl,
-}) => {
+const SongModal: React.FC<SongModalProps> = ({}) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const songModal = useSongModal();
+  const currentSong = songModal.song;
   const {
     control,
     handleSubmit,
@@ -43,13 +32,6 @@ const SongModal: React.FC<SongModalProps> = ({
     formState: { errors },
   } = useForm<SongSchema>({
     resolver: zodResolver(songSchema),
-    defaultValues: {
-      name,
-      imageUrl,
-      artist,
-      album,
-      songUrl,
-    },
   });
 
   const action = capatlize(songModal.status);
@@ -73,18 +55,26 @@ const SongModal: React.FC<SongModalProps> = ({
   };
 
   const create = async (formData: SongSchema) => {
-    if (!songModal.playlistId) throw Errors.invalidId;
-    const song = await createSong(formData, songModal.playlistId);
+    if (!songModal.playlistId) throw Errors.invalidPlaylistId;
+    const song = await createSong(songModal.playlistId, formData);
     toast.success(`Created song "${song.name}"`);
   };
 
   const edit = async (formData: SongSchema) => {
-    toast.success(`Edited song "${name}"`);
+    if (!currentSong) throw Errors.invalidSongId;
+    await editSong(currentSong.id, formData);
+    toast.success(`Edited song successfully!`);
   };
 
   useEffect(() => {
     if (songModal.isOpen) {
-      reset();
+      reset({
+        name: currentSong?.name ?? '',
+        imageUrl: currentSong?.imageUrl ?? undefined,
+        album: currentSong?.album ?? '',
+        artist: currentSong?.artist ?? '',
+        songUrl: currentSong?.songUrl ?? '',
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [songModal.isOpen]);
@@ -151,7 +141,6 @@ const SongModal: React.FC<SongModalProps> = ({
             controlProps={{
               name: 'imageUrl',
               control,
-              rules: { required: true },
             }}
             label="Song image (optional)"
             className="min-w-full"
