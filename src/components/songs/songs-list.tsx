@@ -9,7 +9,7 @@ interface SongsListProps {
 
 const SongsList: React.FC<SongsListProps> = ({ songs }) => {
   return (
-    <div className="flex w-full overflow-x-auto select-none">
+    <div className="flex w-full overflow-x-auto select-none pb-12">
       {songs.length != 0 ? (
         <table className="table-hover table">
           <thead>
@@ -19,6 +19,7 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
               <th>Artist</th>
               <th>Album</th>
               <th>Date added</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
