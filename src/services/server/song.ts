@@ -4,6 +4,12 @@ import { SongSchema } from '@/schemas/songSchema';
 export const createSong = (playlistId: bigint, songData: SongSchema) =>
   prisma.song.create({ data: { playlistId, ...songData } });
 
+export const editSong = (id: bigint, userId: bigint, songData: SongSchema) =>
+  prisma.song.update({
+    where: { id, playlist: { userId } },
+    data: { ...songData },
+  });
+
 export const getSongById = (id: bigint) =>
   prisma.song.findUnique({ where: { id }, include: { playlist: true } });
 
