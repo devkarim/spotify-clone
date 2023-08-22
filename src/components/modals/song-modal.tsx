@@ -7,15 +7,16 @@ import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import log from '@/lib/log';
+import Errors from '@/config/errors';
 import Response from '@/types/server';
 import { capatlize } from '@/lib/utils';
 import Modal from '@/components/ui/modal';
 import Input from '@/components/ui/input';
+import usePlaylist from '@/hooks/use-playlist';
 import useSongModal from '@/hooks/use-song-modal';
 import { createSong, editSong } from '@/services/client/song';
 import { SongSchema, songSchema } from '@/schemas/songSchema';
 import ControlledFileInput from '@/components/ui/controlled-file-input';
-import Errors from '@/config/errors';
 
 interface SongModalProps {}
 
@@ -23,6 +24,8 @@ const SongModal: React.FC<SongModalProps> = ({}) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const songModal = useSongModal();
+  const addSong = usePlaylist((state) => state.addSong);
+  const updateSong = usePlaylist((state) => state.updateSong);
   const currentSong = songModal.song;
   const {
     control,
@@ -58,12 +61,14 @@ const SongModal: React.FC<SongModalProps> = ({}) => {
     if (!songModal.playlistId) throw Errors.invalidPlaylistId;
     const song = await createSong(songModal.playlistId, formData);
     toast.success(`Created song "${song.name}"`);
+    addSong(song);
   };
 
   const edit = async (formData: SongSchema) => {
     if (!currentSong) throw Errors.invalidSongId;
-    await editSong(currentSong.id, formData);
+    const newSong = await editSong(currentSong.id, formData);
     toast.success(`Edited song successfully!`);
+    updateSong(newSong);
   };
 
   useEffect(() => {
