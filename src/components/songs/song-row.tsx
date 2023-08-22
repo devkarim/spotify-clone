@@ -15,11 +15,12 @@ import ActionsDropdown from '@/components/ui/actions-dropdown';
 interface SongRowProps {
   song: Song;
   index: number;
+  onDelete: (id: bigint) => void;
 }
 
 dayjs.extend(relativeTime);
 
-const SongRow: React.FC<SongRowProps> = ({ song, index }) => {
+const SongRow: React.FC<SongRowProps> = ({ onDelete, song, index }) => {
   const setSong = usePlayer((state) => state.setSong);
   const showSongModal = useSongModal((state) => state.show);
   const currentSong = usePlayer((state) => state.song);
@@ -37,8 +38,6 @@ const SongRow: React.FC<SongRowProps> = ({ song, index }) => {
       setSong(song, song.playlistId);
     }
   };
-
-  const onDelete = () => {};
 
   const onUpdate = () => {
     showSongModal('edit', song.playlistId, song);
@@ -63,7 +62,10 @@ const SongRow: React.FC<SongRowProps> = ({ song, index }) => {
       <td>{song.album || 'n/a'}</td>
       <td>{dayjs(song.createdAt).fromNow()}</td>
       <th>
-        <ActionsDropdown onDelete={onDelete} onUpdate={onUpdate} />
+        <ActionsDropdown
+          onDelete={() => onDelete(song.id)}
+          onUpdate={onUpdate}
+        />
       </th>
     </tr>
   );
