@@ -37,7 +37,7 @@ const SidebarLibrary: React.FC<SidebarLibraryProps> = async ({
         </Card>
       )}
       {playlists.length !== 0 && (
-        <div className="p-2">
+        <div className="p-2 space-y-2">
           {playlists.map((p) => (
             <PlaylistCard
               key={p.name}
