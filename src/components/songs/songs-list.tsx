@@ -12,6 +12,7 @@ import { deleteSong } from '@/services/client/song';
 import log from '@/lib/log';
 import Response from '@/types/server';
 import { useRouter } from 'next/navigation';
+import usePlaylist from '@/hooks/use-playlist';
 
 interface SongsListProps {
   songs: Song[];
@@ -21,16 +22,18 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [songId, setSongId] = useState<bigint>();
+  const [deletingSong, setDeletingSong] = useState<Song>();
+  const removeSong = usePlaylist((state) => state.removeSong);
 
   const onConfirm = async () => {
-    if (!songId) return toast.error('Unable to find song ID to delete.');
+    if (!deletingSong) return toast.error('Unable to find song ID to delete.');
     setLoading(true);
     try {
-      await deleteSong(songId);
+      await deleteSong(deletingSong.id);
       toast.success('Song deleted.');
       setIsOpen(false);
       router.refresh();
+      removeSong(deletingSong.playlistId, deletingSong.id);
     } catch (err) {
       log.exception(err, 'songs-list');
       toast.error(Response.parseError(err));
@@ -39,19 +42,19 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
     }
   };
 
-  const onDelete = (id: bigint) => {
-    setSongId(id);
+  const onDelete = (song: Song) => {
+    setDeletingSong(song);
   };
 
   const onClose = () => {
     setIsOpen(false);
-    setSongId(undefined);
+    setDeletingSong(undefined);
   };
 
   useEffect(() => {
-    if (!songId) return;
+    if (!deletingSong) return;
     setIsOpen(true);
-  }, [songId]);
+  }, [deletingSong]);
 
   return (
     <>

@@ -15,7 +15,7 @@ import ActionsDropdown from '@/components/ui/actions-dropdown';
 interface SongRowProps {
   song: Song;
   index: number;
-  onDelete: (id: bigint) => void;
+  onDelete: (song: Song) => void;
 }
 
 dayjs.extend(relativeTime);
@@ -62,10 +62,7 @@ const SongRow: React.FC<SongRowProps> = ({ onDelete, song, index }) => {
       <td>{song.album || 'n/a'}</td>
       <td>{dayjs(song.createdAt).fromNow()}</td>
       <th>
-        <ActionsDropdown
-          onDelete={() => onDelete(song.id)}
-          onUpdate={onUpdate}
-        />
+        <ActionsDropdown onDelete={() => onDelete(song)} onUpdate={onUpdate} />
       </th>
     </tr>
   );
