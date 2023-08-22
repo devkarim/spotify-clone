@@ -9,7 +9,11 @@ export const songSchema = z.object({
   songUrl: z
     .string({ required_error: 'Song url is required.' })
     .url('Song url is invalid.'),
-  imageUrl: z.string().url('Song image is invalid.').optional(),
+  imageUrl: z
+    .string()
+    .url('Song image is invalid.')
+    .optional()
+    .or(z.undefined()),
 });
 
 export type SongSchema = z.infer<typeof songSchema>;
