@@ -6,10 +6,13 @@ import client from './axios';
 
 type SongResponse = BaseResponse<Song>;
 
-export const createSong = (data: SongSchema, playlistId: bigint) =>
+export const createSong = (playlistId: bigint, data: SongSchema) =>
   client
     .post<SongResponse>(`/playlist/${playlistId}/song`, data)
     .then((res) => res.data.data);
+
+export const editSong = (id: bigint, data: SongSchema) =>
+  client.patch<SongResponse>(`/song/${id}`, data).then((res) => res.data.data);
 
 export const updateSongLastPlayed = (songId: bigint) =>
   client.patch<BaseResponseNoData>(`/song/${songId}/last-played`);
