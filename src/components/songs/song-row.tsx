@@ -59,7 +59,6 @@ const SongRow: React.FC<SongRowProps> = ({ onDelete, song, index }) => {
       </th>
       <td>{song.name}</td>
       <td>{song.artist || 'n/a'}</td>
-      <td>{song.album || 'n/a'}</td>
       <td>{dayjs(song.createdAt).fromNow()}</td>
       <th>
         <ActionsDropdown onDelete={() => onDelete(song)} onUpdate={onUpdate} />

@@ -73,7 +73,6 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
                 <th>#</th>
                 <th>Title</th>
                 <th>Artist</th>
-                <th>Album</th>
                 <th>Date added</th>
                 <th></th>
               </tr>
