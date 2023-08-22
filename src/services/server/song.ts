@@ -10,6 +10,9 @@ export const editSong = (id: bigint, userId: bigint, songData: SongSchema) =>
     data: { ...songData },
   });
 
+export const deleteSong = (id: bigint, userId: bigint) =>
+  prisma.song.delete({ where: { id, playlist: { userId } } });
+
 export const getSongById = (id: bigint) =>
   prisma.song.findUnique({ where: { id }, include: { playlist: true } });
 
