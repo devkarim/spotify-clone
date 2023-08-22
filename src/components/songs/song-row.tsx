@@ -9,6 +9,8 @@ import { useGlobalAudioPlayer } from 'react-use-audio-player';
 import { Song } from '@prisma/client';
 
 import usePlayer from '@/hooks/use-player';
+import useSongModal from '@/hooks/use-song-modal';
+import ActionsDropdown from '@/components/ui/actions-dropdown';
 
 interface SongRowProps {
   song: Song;
@@ -19,6 +21,7 @@ dayjs.extend(relativeTime);
 
 const SongRow: React.FC<SongRowProps> = ({ song, index }) => {
   const setSong = usePlayer((state) => state.setSong);
+  const showSongModal = useSongModal((state) => state.show);
   const currentSong = usePlayer((state) => state.song);
   const { play, playing, pause } = useGlobalAudioPlayer();
   const isCurrentSong = currentSong?.id == song.id;
@@ -33,6 +36,12 @@ const SongRow: React.FC<SongRowProps> = ({ song, index }) => {
     } else {
       setSong(song, song.playlistId);
     }
+  };
+
+  const onDelete = () => {};
+
+  const onUpdate = () => {
+    showSongModal('edit', song.playlistId, song);
   };
 
   return (
@@ -53,6 +62,9 @@ const SongRow: React.FC<SongRowProps> = ({ song, index }) => {
       <td>{song.artist || 'n/a'}</td>
       <td>{song.album || 'n/a'}</td>
       <td>{dayjs(song.createdAt).fromNow()}</td>
+      <th>
+        <ActionsDropdown onDelete={onDelete} onUpdate={onUpdate} />
+      </th>
     </tr>
   );
 };
