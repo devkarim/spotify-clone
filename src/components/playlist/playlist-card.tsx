@@ -1,7 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
+import { cn, toBigInt } from '@/lib/utils';
 import MusicImage from '@/components/ui/music-image';
 
 interface PlaylistCardProps {
@@ -18,10 +19,16 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
   songs = 0,
 }) => {
   const router = useRouter();
+  const { playlistId } = useParams();
+  const isCurrentPlaylist =
+    toBigInt(typeof playlistId == 'string' ? playlistId : playlistId[0]) == id;
 
   return (
     <div
-      className="flex p-2 gap-4 hover:bg-card/50 rounded-md transition-colors cursor-pointer"
+      className={cn(
+        'flex p-2 gap-4 hover:bg-card/50 rounded-md transition-colors cursor-pointer',
+        { 'bg-card/80 hover:bg-card/100': isCurrentPlaylist }
+      )}
       onClick={() => router.push(`/playlist/${id}`)}
     >
       <div className="relative rounded-md overflow-hidden h-16 w-16">
