@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import MusicNoImage from './music-no-image';
 
 interface MusicImageProps extends Omit<ImageProps, 'src' | 'alt'> {
-  imageUrl: string | null;
+  imageUrl?: string | null;
   emptyClassName?: string;
 }
 
