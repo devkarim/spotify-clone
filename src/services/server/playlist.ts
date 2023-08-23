@@ -1,4 +1,5 @@
 import prisma from '@/lib/prisma';
+import { PlaylistSchema } from '@/schemas/playlistSchema';
 
 export const createPlaylist = (
   userId: bigint,
@@ -11,6 +12,14 @@ export const createPlaylist = (
       name,
       imageUrl,
     },
+  });
+
+export const updatePlaylist = (id: bigint, data: PlaylistSchema) =>
+  prisma.playlist.update({
+    where: {
+      id,
+    },
+    data,
   });
 
 export const getUserPlaylists = (userId?: bigint) =>
