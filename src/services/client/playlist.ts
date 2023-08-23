@@ -13,6 +13,11 @@ type FullPlaylistResponse = BaseResponse<FullPlaylist>;
 export const createPlaylist = (data: PlaylistSchema) =>
   client.post<PlaylistResponse>('/playlist', data).then((res) => res.data.data);
 
+export const updatePlaylist = (playlistId: bigint, data: PlaylistSchema) =>
+  client
+    .patch<PlaylistResponse>(`/playlist/${playlistId}`, data)
+    .then((res) => res.data.data);
+
 export const getUserPlaylist = async (playlistId: bigint) => {
   return client
     .get<FullPlaylistResponse>(`/playlist/${playlistId}`)
