@@ -67,7 +67,7 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({
 
   return (
     <div className="flex flex-col sm:flex-row gap-12 items-center justify-between">
-      <div className="flex flex-col sm:flex-row gap-6 items-center">
+      <div className="flex flex-col sm:flex-row gap-6 items-center w-min sm:w-fit">
         <div className="group relative h-72 w-72 rounded-md overflow-hidden shadow-xl transition-opacity">
           <MusicImage imageUrl={imageUrl} className="group-hover:opacity-40" />
           <div
@@ -85,10 +85,10 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({
             />
           </div>
         </div>
-        <div className="space-y-4">
+        <div className="self-start w-full sm:self-auto sm:w-fit space-y-4">
           <p>Playlist</p>
           <input
-            className="bg-transparent font-bold text-5xl sm:text-7xl focus:input"
+            className="bg-transparent font-bold text-5xl sm:text-7xl w-full focus:input focus:input-xl"
             defaultValue={title}
             onBlur={onUpdateName}
             disabled={loading}
