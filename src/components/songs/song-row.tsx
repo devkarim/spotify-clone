@@ -1,9 +1,8 @@
 'use client';
 
-import dayjs from 'dayjs';
+import moment from 'moment';
 import { FaPlay } from 'react-icons/fa';
 import { FaPause } from 'react-icons/fa6';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import { useGlobalAudioPlayer } from 'react-use-audio-player';
 
 import { Song } from '@prisma/client';
@@ -17,8 +16,6 @@ interface SongRowProps {
   index: number;
   onDelete: (song: Song) => void;
 }
-
-dayjs.extend(relativeTime);
 
 const SongRow: React.FC<SongRowProps> = ({ onDelete, song, index }) => {
   const setSong = usePlayer((state) => state.setSong);
@@ -59,7 +56,7 @@ const SongRow: React.FC<SongRowProps> = ({ onDelete, song, index }) => {
       </th>
       <td>{song.name}</td>
       <td>{song.artist || 'n/a'}</td>
-      <td>{dayjs(song.createdAt).fromNow()}</td>
+      <td>{moment(song.createdAt).fromNow()}</td>
       <th>
         <ActionsDropdown onDelete={() => onDelete(song)} onUpdate={onUpdate} />
       </th>

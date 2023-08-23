@@ -1,7 +1,6 @@
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import durationPlugin from 'dayjs/plugin/duration';
 import { useGlobalAudioPlayer } from 'react-use-audio-player';
+import moment from 'moment';
 
 import usePlayer from '@/hooks/use-player';
 import useAudioTime from '@/hooks/use-audio-time';
@@ -9,8 +8,6 @@ import useAudioTime from '@/hooks/use-audio-time';
 import PlayerRange from './player-range';
 
 interface PlayerSliderProps {}
-
-dayjs.extend(durationPlugin);
 
 const PlayerSlider: React.FC<PlayerSliderProps> = () => {
   const player = usePlayer();
@@ -45,7 +42,7 @@ const PlayerSlider: React.FC<PlayerSliderProps> = () => {
     <>
       <div className="hidden lg:flex items-center gap-4 w-full">
         <p className="opacity-60 text-sm">
-          {dayjs.duration(pos, 'seconds').format('mm:ss')}
+          {moment().startOf('day').seconds(pos).format('mm:ss')}
         </p>
         <PlayerRange
           value={pos}
@@ -59,7 +56,7 @@ const PlayerSlider: React.FC<PlayerSliderProps> = () => {
           }}
         />
         <p className="opacity-60 text-sm">
-          {dayjs.duration(duration, 'seconds').format('mm:ss')}
+          {moment().startOf('day').seconds(duration).format('mm:ss')}
         </p>
       </div>
       <progress
