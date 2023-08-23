@@ -41,7 +41,7 @@ export async function PATCH(
     const playlist = await updatePlaylist(user.id, playlistId, data);
     return Response.success(playlist);
   } catch (err) {
-    log.error(err, 'get /api/playlist/[id]');
+    log.error(err, 'patch /api/playlist/[id]');
     return Response.error(err);
   }
 }
