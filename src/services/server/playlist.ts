@@ -14,10 +14,15 @@ export const createPlaylist = (
     },
   });
 
-export const updatePlaylist = (id: bigint, data: PlaylistSchema) =>
+export const updatePlaylist = (
+  userId: bigint,
+  id: bigint,
+  data: PlaylistSchema
+) =>
   prisma.playlist.update({
     where: {
       id,
+      userId,
     },
     data,
   });
