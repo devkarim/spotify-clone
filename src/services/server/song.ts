@@ -31,3 +31,16 @@ export const getLastPlayedSongs = (userId?: bigint) =>
         take: 10,
       })
     : [];
+
+export const searchSongs = (userId: bigint, query: string) => {
+  return prisma.song.findMany({
+    where: {
+      playlist: { userId },
+      OR: [
+        { name: { contains: query, mode: 'insensitive' } },
+        { artist: { contains: query, mode: 'insensitive' } },
+        { album: { contains: query, mode: 'insensitive' } },
+      ],
+    },
+  });
+};
