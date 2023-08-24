@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   MdArrowBackIos,
   MdArrowForwardIos,
@@ -30,13 +30,22 @@ const Navbar: React.FC<NavbarProps> = ({
   const router = useRouter();
   const offset = useScroll((state) => state.offset);
   const loginModal = useLoginModal();
+  const pathname = usePathname();
 
   return (
     <div
       className={cn(
-        'flex justify-between sticky top-0 z-50 p-6 bg-opacity-0 transition-colors duration-300 backdrop-blur-lg',
-        offset > 25 && 'bg-opacity-30',
+        'flex justify-between sticky top-0 z-50 p-6 bg-opacity-0 transition-colors duration-300',
+        'bg-primary',
+        offset > 25 && 'backdrop-blur-lg bg-opacity-30',
         offset > 100 && 'bg-opacity-60',
+        isSignedIn &&
+          cn(
+            'bg-blue-900',
+            pathname.startsWith('/playlist') && 'bg-emerald-800',
+            pathname.startsWith('/search') && 'bg-pink-800',
+            pathname.startsWith('/premium') && 'bg-purple-800'
+          ),
         className
       )}
     >
