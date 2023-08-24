@@ -9,6 +9,7 @@ export interface InputProps
   label?: string;
   solid?: boolean;
   error?: string;
+  left?: React.ReactNode;
   right?: React.ReactNode;
   parentClassName?: string;
   full?: boolean;
@@ -21,6 +22,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       label,
       error,
       className,
+      left,
       right,
       solid = false,
       parentClassName,
@@ -45,10 +47,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </span>
           </label>
         )}
-        <div className="relative w-full">
+        <div className="group relative w-full">
           <input
             className={cn(
-              'focus:border-white/60 transition-colors',
+              'focus:border-white/80 transition-colors peer',
               {
                 input: !file,
               },
@@ -64,12 +66,20 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               {
                 'input-block': full,
               },
+              {
+                'pl-10': !!left,
+              },
               className
             )}
             ref={ref}
             {...props}
           />
-          <span className="absolute right-5 top-3">{right}</span>
+          <span className="absolute left-4 top-1/3 opacity-40 peer-focus:opacity-100 transition-opacity">
+            {left}
+          </span>
+          <span className="absolute right-5 top-3 opacity-40 peer-focus:opacity-100 transition-opacity">
+            {right}
+          </span>
         </div>
         {error && (
           <label className="absolute label">
