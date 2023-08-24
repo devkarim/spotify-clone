@@ -9,6 +9,7 @@ const Messages = {
     invalidId: 'Invalid id.',
     notFound: 'Not found.',
     invalidFile: 'Invalid file.',
+    queryRequired: 'Search query is required.',
   },
 } as const;
 
