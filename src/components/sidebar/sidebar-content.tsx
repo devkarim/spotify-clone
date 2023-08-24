@@ -26,7 +26,6 @@ const SidebarContent: React.FC<SidebarContentProps> = async ({ children }) => {
               isSignedIn={isSignedIn}
               name={user?.name}
               imageUrl={user?.image}
-              className={cn('bg-primary', isSignedIn && 'bg-blue-950')}
             />
             {children}
           </MainContainer>
