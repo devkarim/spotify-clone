@@ -25,6 +25,7 @@ const SectionItemList: React.FC<SectionItemListProps> = ({ items }) => {
         <SectionItem
           key={item.title}
           item={item}
+          rounded={!!item.song}
           onParentClick={() => onParentClick(item)}
         />
       ))}
