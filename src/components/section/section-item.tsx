@@ -24,7 +24,7 @@ const SectionItem: React.FC<SectionItemProps> = ({
         className={cn(
           'relative h-40 w-full lg:w-40 rounded-md overflow-hidden',
           {
-            'rounded-full': rounded,
+            'lg:rounded-full': rounded,
           }
         )}
         onClick={(e) => e.target == e.currentTarget && onParentClick?.()}
