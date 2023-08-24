@@ -33,12 +33,14 @@ const MainContainer: React.FC<MainContainerProps> = ({
     >
       <div
         className={cn(
-          'absolute top-0 w-full h-64',
-          isSignedIn && 'bg-gradient-to-b from-blue-800/40',
+          'absolute top-0 w-full h-64 bg-gradient-to-b',
           isSignedIn &&
-            pathname.startsWith('/playlist') &&
-            'bg-gradient-to-b from-emerald-800/70',
-          headerClassName
+            cn(
+              'from-blue-800/40',
+              pathname.startsWith('/playlist') && 'from-emerald-800/70',
+              pathname.startsWith('/search') && 'from-pink-800/50',
+              pathname.startsWith('/premium') && 'from-purple-800/50'
+            )
         )}
       />
       <div className="relative">{children}</div>
