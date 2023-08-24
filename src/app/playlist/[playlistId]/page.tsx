@@ -30,7 +30,7 @@ const PlaylistPage: React.FC<PlaylistPageProps> = async ({
       <PlaylistHeader
         id={playlist.id}
         title={playlist.name}
-        imageUrl={playlist.imageUrl}
+        imageUrl={playlist.imageUrl ?? undefined}
       />
       {playlist.songs.length != 0 && (
         <PlaylistPlayButton
