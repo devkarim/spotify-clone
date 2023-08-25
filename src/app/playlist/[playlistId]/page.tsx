@@ -7,6 +7,7 @@ import { getUserPlaylist } from '@/services/server/playlist';
 import PlaylistPlayButton from '@/components/player/playlist-play-button';
 
 import PlaylistHeader from './components/playlist-header';
+import PlaylistOptions from './components/playlist-options';
 
 interface PlaylistPageProps {
   params: { playlistId: string };
@@ -32,12 +33,13 @@ const PlaylistPage: React.FC<PlaylistPageProps> = async ({
         title={playlist.name}
         imageUrl={playlist.imageUrl ?? undefined}
       />
-      {playlist.songs.length != 0 && (
+      <div className="flex items-center gap-6">
         <PlaylistPlayButton
           playlistId={playlist.id}
           firstSong={playlist.songs[0]}
         />
-      )}
+        <PlaylistOptions name={playlist.name} playlistId={playlist.id} />
+      </div>
       <SongsList songs={playlist.songs} />
     </Container>
   );
