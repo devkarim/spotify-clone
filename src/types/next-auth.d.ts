@@ -11,6 +11,7 @@ declare module 'next-auth' {
       email: string;
       image?: string | null;
       isAuthenticated?: boolean;
+      isPremium: boolean;
     } & DefaultSession['user'];
   }
 }
