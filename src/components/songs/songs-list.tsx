@@ -89,7 +89,9 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
             </tbody>
           </table>
         ) : (
-          <p className="opacity-60 text-center w-full">No songs found.</p>
+          <p className="opacity-60 text-center w-full">
+            No songs found. Add one using the &quot;+&quot; button above!
+          </p>
         )}
       </div>
     </>
