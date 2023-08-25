@@ -1,4 +1,3 @@
-import { cn } from '@/lib/utils';
 import Navbar from '@/components/ui/navbar';
 import Player from '@/components/player/main-player';
 import { getUser } from '@/services/server/session';

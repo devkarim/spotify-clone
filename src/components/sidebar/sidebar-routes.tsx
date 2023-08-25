@@ -3,8 +3,12 @@
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { usePathname } from 'next/navigation';
-import { RiSearchLine, RiSearchFill } from 'react-icons/ri';
-import { PiHouseSimpleBold, PiHouseSimpleFill } from 'react-icons/pi';
+// import { RiSearchLine, RiSearchFill } from 'react-icons/ri';
+// import { PiHouseSimple, PiHouseSimpleFill } from 'react-icons/pi';
+import { RiSearchLine } from '@react-icons/all-files/ri/RiSearchLine';
+import { RiSearchFill } from '@react-icons/all-files/ri/RiSearchFill';
+import { PiHouseSimpleBold } from '@react-icons/all-files/pi/PiHouseSimpleBold';
+import { PiHouseSimpleFill } from '@react-icons/all-files/pi/PiHouseSimpleFill';
 
 import { cn } from '@/lib/utils';
 

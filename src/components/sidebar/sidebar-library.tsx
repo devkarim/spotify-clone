@@ -1,4 +1,5 @@
-import { VscLibrary } from 'react-icons/vsc';
+// import { VscLibrary } from 'react-icons/vsc';
+import { VscLibrary } from '@react-icons/all-files/vsc/VscLibrary';
 
 import Card from '@/components/ui/card';
 import { PlaylsitWithSongCount } from '@/types/db';

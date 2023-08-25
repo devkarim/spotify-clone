@@ -1,4 +1,7 @@
-import { FaEdit, FaEllipsisH, FaTrash } from 'react-icons/fa';
+// import { FaEdit, FaEllipsisH, FaTrash } from 'react-icons/fa';
+import { FaEdit } from '@react-icons/all-files/fa/FaEdit';
+import { FaTrash } from '@react-icons/all-files/fa/FaTrash';
+import { FaEllipsisH } from '@react-icons/all-files/fa/FaEllipsisH';
 
 interface ActionsDropdownProps {
   onDelete: () => void;

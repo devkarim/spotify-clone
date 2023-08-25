@@ -1,7 +1,8 @@
 'use client';
 
 import { toast } from 'react-toastify';
-import { FaSearch } from 'react-icons/fa';
+// import { FaSearch } from 'react-icons/fa';
+import { FaSearch } from '@react-icons/all-files/fa/FaSearch';
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 

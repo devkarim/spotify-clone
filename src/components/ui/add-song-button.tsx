@@ -1,7 +1,8 @@
 'use client';
 
 import useSongModal from '@/hooks/use-song-modal';
-import { FaPlus } from 'react-icons/fa6';
+// import { FaPlus } from 'react-icons/fa6';
+import { FaPlus } from '@react-icons/all-files/fa6/FaPlus';
 
 interface AddSongButtonProps {
   playlistId: bigint;

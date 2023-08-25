@@ -1,6 +1,8 @@
 import { shallow } from 'zustand/shallow';
 import { useGlobalAudioPlayer } from 'react-use-audio-player';
-import { FaBackwardStep, FaForwardStep } from 'react-icons/fa6';
+// import { FaBackwardStep, FaForwardStep } from 'react-icons/fa6';
+import { FaBackwardStep } from '@react-icons/all-files/fa6/FaBackwardStep';
+import { FaForwardStep } from '@react-icons/all-files/fa6/FaForwardStep';
 
 import usePlayer from '@/hooks/use-player';
 import usePlaylist from '@/hooks/use-playlist';

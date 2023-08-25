@@ -1,6 +1,8 @@
 'use client';
 
-import { FaPause, FaPlay } from 'react-icons/fa';
+// import { FaPause, FaPlay } from 'react-icons/fa';
+import { FaPlay } from '@react-icons/all-files/fa/FaPlay';
+import { FaPause } from '@react-icons/all-files/fa/FaPause';
 import { DetailedHTMLProps, ButtonHTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';

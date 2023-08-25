@@ -3,12 +3,16 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import {
-  MdArrowBackIos,
-  MdArrowForwardIos,
-  MdHome,
-  MdSearch,
-} from 'react-icons/md';
+// import {
+//   MdArrowBackIos,
+//   MdArrowForwardIos,
+//   MdHome,
+//   MdSearch,
+// } from 'react-icons/md';
+import { MdArrowBackIos } from '@react-icons/all-files/md/MdArrowBackIos';
+import { MdArrowForwardIos } from '@react-icons/all-files/md/MdArrowForwardIos';
+import { MdHome } from '@react-icons/all-files/md/MdHome';
+import { MdSearch } from '@react-icons/all-files/md/MdSearch';
 
 import useLoginModal from '@/hooks/use-login-modal';
 import useScroll from '@/hooks/use-scroll';

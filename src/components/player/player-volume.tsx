@@ -1,7 +1,10 @@
 'use client';
 
 import { useGlobalAudioPlayer } from 'react-use-audio-player';
-import { FaVolumeLow, FaVolumeXmark, FaVolumeHigh } from 'react-icons/fa6';
+// import { FaVolumeLow, FaVolumeXmark, FaVolumeHigh } from 'react-icons/fa6';
+import { FaVolumeLow } from '@react-icons/all-files/fa6/FaVolumeLow';
+import { FaVolumeHigh } from '@react-icons/all-files/fa6/FaVolumeHigh';
+import { FaVolumeXmark } from '@react-icons/all-files/fa6/FaVolumeXmark';
 
 import usePlayer from '@/hooks/use-player';
 

@@ -2,7 +2,8 @@
 
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { FaXmark } from 'react-icons/fa6';
+// import { FaXmark } from 'react-icons/fa6';
+import { FaXmark } from '@react-icons/all-files/fa6/FaXmark';
 
 import { cn } from '@/lib/utils';
 

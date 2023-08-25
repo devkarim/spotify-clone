@@ -1,8 +1,10 @@
 'use client';
 
 import moment from 'moment';
-import { FaPlay } from 'react-icons/fa';
-import { FaPause } from 'react-icons/fa6';
+// import { FaPlay } from 'react-icons/fa';
+// import { FaPause } from 'react-icons/fa6';
+import { FaPlay } from '@react-icons/all-files/fa/FaPlay';
+import { FaPause } from '@react-icons/all-files/fa6/FaPause';
 import { useGlobalAudioPlayer } from 'react-use-audio-player';
 
 import { Song } from '@prisma/client';

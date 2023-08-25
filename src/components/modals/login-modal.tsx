@@ -3,7 +3,8 @@
 import { toast } from 'react-toastify';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
-import { FaGithub } from 'react-icons/fa';
+// import { FaGithub } from 'react-icons/FaGithub';
+import { FaGithub } from '@react-icons/all-files/fa/FaGithub';
 import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter, useSearchParams } from 'next/navigation';

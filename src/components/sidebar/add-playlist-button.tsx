@@ -4,7 +4,8 @@ import useLoginModal from '@/hooks/use-login-modal';
 import usePlaylistModal from '@/hooks/use-playlist-modal';
 import useUser from '@/hooks/use-user';
 import { cn } from '@/lib/utils';
-import { FaPlus } from 'react-icons/fa';
+// import { FaPlus } from 'react-icons/fa/FaPlus';
+import { FaPlus } from '@react-icons/all-files/fa6/FaPlus';
 
 interface AddPlaylistButtonProps {
   icon?: boolean;
