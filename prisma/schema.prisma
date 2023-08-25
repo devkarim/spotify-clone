@@ -20,16 +20,27 @@ enum PlaylistType {
   LIKED
 }
 
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  PENDING
+  EXPIRED
+  TRIALING
+  UNPAID
+}
+
 model User {
-  id        BigInt     @id @default(autoincrement())
-  name      String?
-  email     String     @unique
-  password  String?
-  imageUrl  String?
-  providers Provider[]
-  playlists Playlist[] @relation(name: "playlists")
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id                 BigInt        @id @default(autoincrement())
+  stripe_customer_id String?       @unique
+  name               String?
+  email              String        @unique
+  password           String?
+  imageUrl           String?
+  providers          Provider[]
+  playlists          Playlist[]    @relation(name: "playlists")
+  subscription       Subscription?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
 }
 
 model Provider {
@@ -68,4 +79,21 @@ model Song {
   lastPlayedAt DateTime?
   playlist     Playlist  @relation(fields: [playlistId], references: [id], onDelete: Cascade)
   playlistId   BigInt
+}
+
+model Subscription {
+  id                     BigInt             @id @default(autoincrement())
+  stripe_subscription_id String?            @unique
+  status                 SubscriptionStatus @default(PENDING)
+  current_period_start   DateTime?
+  current_period_end     DateTime?
+  cancel_at              DateTime?
+  trial_start            DateTime?
+  trial_end              DateTime?
+  cancel_at_period_end   Boolean            @default(false)
+  ended_at               DateTime?
+  canceled_at            DateTime?
+  createdAt              DateTime           @default(now())
+  user                   User               @relation(fields: [userId], references: [id])
+  userId                 BigInt             @unique
 }
