@@ -17,6 +17,10 @@ class Response {
   static parseError(err: unknown) {
     return ServerError.from(err).message;
   }
+
+  static parseStatusCode(err: unknown) {
+    return ServerError.from(err).statusCode;
+  }
 }
 
 export default Response;
