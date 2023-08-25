@@ -15,6 +15,7 @@ import usePlaylistModal from '@/hooks/use-playlist-modal';
 import { createPlaylist } from '@/services/client/playlist';
 import ControlledFileInput from '@/components/ui/controlled-file-input';
 import { PlaylistSchema, playlistSchema } from '@/schemas/playlistSchema';
+import useSubscriptionModal from '@/hooks/use-subscription-modal';
 
 interface PlaylistModalProps {
   name?: string;
@@ -24,6 +25,7 @@ interface PlaylistModalProps {
 const PlaylistModal: React.FC<PlaylistModalProps> = ({ name, imageUrl }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const showSubscriptionModal = useSubscriptionModal((state) => state.show);
   const playlistModal = usePlaylistModal();
   const {
     control,
@@ -53,6 +55,10 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({ name, imageUrl }) => {
       router.refresh();
     } catch (err) {
       log.exception(err, 'playlist-modal');
+      if (Response.parseStatusCode(err) == 403) {
+        showSubscriptionModal();
+        playlistModal.hide();
+      }
       toast.error(Response.parseError(err));
     } finally {
       setLoading(false);
@@ -62,6 +68,7 @@ const PlaylistModal: React.FC<PlaylistModalProps> = ({ name, imageUrl }) => {
   const create = async (formData: PlaylistSchema) => {
     const playlist = await createPlaylist(formData);
     toast.success(`Created playlist "${playlist.name}"`);
+    router.push(`/playlist/${playlist.id}`);
   };
 
   const edit = async (formData: PlaylistSchema) => {

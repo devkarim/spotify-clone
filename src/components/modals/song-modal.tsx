@@ -17,6 +17,7 @@ import useSongModal from '@/hooks/use-song-modal';
 import { createSong, editSong } from '@/services/client/song';
 import { SongSchema, songSchema } from '@/schemas/songSchema';
 import ControlledFileInput from '@/components/ui/controlled-file-input';
+import useSubscriptionModal from '@/hooks/use-subscription-modal';
 
 interface SongModalProps {}
 
@@ -25,6 +26,7 @@ const SongModal: React.FC<SongModalProps> = ({}) => {
   const router = useRouter();
   const songModal = useSongModal();
   const addSong = usePlaylist((state) => state.addSong);
+  const showSubscriptionModal = useSubscriptionModal((state) => state.show);
   const updateSong = usePlaylist((state) => state.updateSong);
   const currentSong = songModal.song;
   const {
@@ -51,6 +53,10 @@ const SongModal: React.FC<SongModalProps> = ({}) => {
       router.refresh();
     } catch (err) {
       log.exception(err, 'song-modal');
+      if (Response.parseStatusCode(err) == 403) {
+        showSubscriptionModal();
+        songModal.hide();
+      }
       toast.error(Response.parseError(err));
     } finally {
       setLoading(false);
