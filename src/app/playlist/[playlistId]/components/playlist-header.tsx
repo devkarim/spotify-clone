@@ -1,7 +1,8 @@
 'use client';
 
 import { toast } from 'react-toastify';
-import { RxPencil1 } from 'react-icons/rx';
+// import { RxPencil1 } from 'react-icons/rx';
+import { RxPencil1 } from '@react-icons/all-files/rx/RxPencil1';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useRef, useState } from 'react';
 
@@ -69,9 +70,8 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({
     <div className="flex flex-col sm:flex-row gap-12 items-center justify-between">
       <div className="flex flex-col sm:flex-row gap-6 items-center w-min sm:w-fit">
         <div className="group relative h-72 w-72 rounded-md overflow-hidden shadow-xl transition-opacity">
-          <MusicImage imageUrl={imageUrl} className="group-hover:opacity-40" />
           <div
-            className="flex flex-col justify-center items-center w-full h-full absolute opacity-0 group-hover:opacity-100 transition-opacity text-center select-none"
+            className="flex flex-col justify-center items-center w-full h-full absolute opacity-0 group-hover:opacity-100 transition-opacity text-center select-none z-50"
             onClick={onBrowseNewPhoto}
           >
             <RxPencil1 className="text-5xl" />
@@ -84,6 +84,11 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({
               className="hidden"
             />
           </div>
+          <MusicImage
+            imageUrl={imageUrl}
+            className="group-hover:opacity-40"
+            emptyClassName="group-hover:opacity-20"
+          />
         </div>
         <div className="self-start w-full sm:self-auto sm:w-fit space-y-4">
           <p>Playlist</p>
@@ -92,6 +97,7 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({
             defaultValue={title}
             onBlur={onUpdateName}
             disabled={loading}
+            onKeyUp={(e) => e.key === 'Enter' && e.currentTarget.blur()}
           />
         </div>
       </div>
