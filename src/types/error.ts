@@ -17,6 +17,8 @@ class ServerError extends Error {
       return ServerError.fromZod(err);
     } else if (err instanceof AxiosError) {
       return ServerError.fromAxios(err);
+    } else if (err instanceof ServerError) {
+      return err;
     } else if (err instanceof Error) {
       return ServerError.fromError(err);
     }
@@ -26,7 +28,7 @@ class ServerError extends Error {
   static fromAxios(err: AxiosError) {
     return new ServerError(
       (err.response?.data as ErrorResponse)?.message || 'Internal server error',
-      err.status || 500
+      err.response?.status || 500
     );
   }
 
