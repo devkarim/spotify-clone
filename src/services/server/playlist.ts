@@ -27,6 +27,14 @@ export const updatePlaylist = (
     data,
   });
 
+export const deletePlaylist = (userId: bigint, id: bigint) =>
+  prisma.playlist.delete({
+    where: {
+      id,
+      userId,
+    },
+  });
+
 export const getUserPlaylists = (userId?: bigint) =>
   userId
     ? prisma.playlist.findMany({
