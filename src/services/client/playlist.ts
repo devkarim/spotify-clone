@@ -18,6 +18,11 @@ export const updatePlaylist = (playlistId: bigint, data: PlaylistSchema) =>
     .patch<PlaylistResponse>(`/playlist/${playlistId}`, data)
     .then((res) => res.data.data);
 
+export const deletePlaylist = (playlistId: bigint) =>
+  client
+    .delete<PlaylistResponse>(`/playlist/${playlistId}`)
+    .then((res) => res.data.data);
+
 export const getUserPlaylist = async (playlistId: bigint) => {
   return client
     .get<FullPlaylistResponse>(`/playlist/${playlistId}`)
