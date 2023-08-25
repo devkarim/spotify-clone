@@ -10,6 +10,7 @@ import PlaylistModal from '@/components/modals/playlist-modal';
 import AuthProvider from '@/components/providers/auth-provider';
 import ToastProvider from '@/components/providers/toast-provider';
 import SongModal from '@/components/modals/song-modal';
+import SubscriptionaModal from '@/components/modals/subscription-modal';
 
 const font = Figtree({ subsets: ['latin'] });
 
@@ -31,6 +32,7 @@ export default async function RootLayout({
           <LoginModal />
           <PlaylistModal />
           <SongModal />
+          <SubscriptionaModal />
           <SidebarContent>{children}</SidebarContent>
         </AuthProvider>
       </body>
