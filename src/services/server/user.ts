@@ -8,10 +8,17 @@ import { exclude } from '@/lib/exclude-prisma';
 export const createUser = async (email: string, password: string) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await prisma.user.create({
-    data: { email, password: hashedPassword },
+    data: { email, password: hashedPassword, subscription: { create: {} } },
     select: exclude('User', ['password']),
   });
   return user;
+};
+
+export const getUserById = async (userId: bigint) => {
+  return prisma.user.findUnique({
+    where: { id: userId },
+    include: { playlists: true },
+  });
 };
 
 export const isEmailTaken = async (email: string) => {
@@ -65,4 +72,14 @@ export const authenticateOAuth = async (
     if (user.password) throw Errors.emailTaken;
   }
   return true;
+};
+
+export const getUserSubscription = async (userId: bigint) => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: {
+      subscription: true,
+    },
+  });
+  return user?.subscription;
 };
