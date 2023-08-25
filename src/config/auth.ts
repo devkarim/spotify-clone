@@ -2,9 +2,10 @@ import { AuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import prisma from '@/lib/prisma';
-import { authenticate, authenticateOAuth } from '@/services/server/user';
 import log from '@/lib/log';
+import prisma from '@/lib/prisma';
+import { isPremium } from '@/lib/db-utils';
+import { authenticate, authenticateOAuth } from '@/services/server/user';
 
 const authOptions: AuthOptions = {
   session: {
@@ -41,12 +42,14 @@ const authOptions: AuthOptions = {
     async session({ session }) {
       const user = await prisma.user.findUnique({
         where: { email: session.user.email },
+        include: { subscription: true },
       });
       if (!user) return session;
       session.user = {
         ...session.user,
         id: user.id,
         isAuthenticated: true,
+        isPremium: isPremium(user.subscription?.status),
       };
       return session;
     },
