@@ -18,6 +18,7 @@ interface PlayerState {
   setShouldPlay: (shouldPlay: boolean) => void;
   playNextSong: (songs: Song[]) => void;
   playPrevSong: (songs: Song[]) => void;
+  reset: () => void;
 }
 
 const usePlayer = createWithEqualityFn(
@@ -66,6 +67,8 @@ const usePlayer = createWithEqualityFn(
           );
         }
       },
+      reset: () =>
+        set(() => ({ song: undefined, playlistId: undefined, pos: 0 })),
     })),
     {
       name: 'player',
