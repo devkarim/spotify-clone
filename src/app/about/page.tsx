@@ -63,7 +63,7 @@ const AboutPage: React.FC<AboutPageProps> = ({}) => {
         </h2>
         <p>
           This web application is a clone of Spotify so the information
-          generated is not genuine. Therefore, this is{' '}
+          generated is not genuine. This application is{' '}
           <span className="font-bold">not intended</span> for commercial use.
           For any inquiries, please contact me at:{' '}
           <Link

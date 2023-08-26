@@ -64,8 +64,8 @@ const HomePage: React.FC<HomePageProps> = async ({}) => {
       <div className="space-y-3">
         <WelcomeHeader />
         <p className="opacity-60">
-          A web music player where you can add your favorite songs to your
-          customized playlists.
+          A web music player where you can listen & add your favorite songs to
+          your customized playlists.
         </p>
       </div>
       <div className="flex flex-wrap w-full flex-col sm:flex-row items-center sm:items-stretch sm:justify-normal gap-6">
