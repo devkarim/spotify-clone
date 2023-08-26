@@ -50,13 +50,13 @@ const Navbar: React.FC<NavbarProps> = ({
           'bg-primary',
           offset > 25 && 'backdrop-blur-lg bg-opacity-30',
           offset > 100 && 'bg-opacity-60',
-          isSignedIn &&
-            cn(
-              'bg-blue-900',
-              pathname.startsWith('/playlist') && 'bg-emerald-800',
-              pathname.startsWith('/search') && 'bg-pink-800',
-              pathname.startsWith('/premium') && 'bg-purple-800'
-            ),
+          // isSignedIn &&
+          cn(
+            'bg-blue-900',
+            pathname.startsWith('/playlist') && 'bg-emerald-800',
+            pathname.startsWith('/search') && 'bg-pink-800',
+            pathname.startsWith('/premium') && 'bg-purple-800'
+          ),
           className
         )}
       >
