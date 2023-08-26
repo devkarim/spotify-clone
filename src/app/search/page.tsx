@@ -1,10 +1,10 @@
 'use client';
 
 import { toast } from 'react-toastify';
-// import { FaSearch } from 'react-icons/fa';
-import { FaSearch } from '@react-icons/all-files/fa/FaSearch';
 import { useEffect, useState } from 'react';
+// import { FaSearch } from 'react-icons/fa';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { FaSearch } from '@react-icons/all-files/fa/FaSearch';
 
 import { Song } from '@prisma/client';
 
@@ -13,8 +13,8 @@ import Response from '@/types/server';
 import Input from '@/components/ui/input';
 import Container from '@/components/ui/container';
 import { searchSongs } from '@/services/client/song';
-import SectionItemList from '@/components/section/section-item-list';
 import SpinnerRing from '@/components/ui/spinner-ring';
+import SectionItemList from '@/components/section/section-item-list';
 
 interface SearchPageProps {}
 
@@ -30,11 +30,11 @@ const SearchPage: React.FC<SearchPageProps> = ({}) => {
     router.push('/search?q=' + q);
   };
 
-  const search = async () => {
+  const search = async (signal: AbortSignal) => {
     if (!query) return;
     setLoading(true);
     try {
-      const songs = await searchSongs(query);
+      const songs = await searchSongs(query, signal);
       setSongs(songs);
     } catch (err) {
       log.exception(err, 'search-page');
@@ -49,7 +49,9 @@ const SearchPage: React.FC<SearchPageProps> = ({}) => {
       setSongs([]);
       return;
     }
-    search();
+    const controller = new AbortController();
+    search(controller.signal);
+    return () => controller.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 

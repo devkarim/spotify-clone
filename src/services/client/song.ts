@@ -25,7 +25,7 @@ export const updateSongLastPlayed = (songId: bigint) =>
 export const getLastPlayedSongs = () =>
   client.get<SongsResponse>('/song/last-played').then((res) => res.data.data);
 
-export const searchSongs = (query: string) =>
+export const searchSongs = (query: string, signal: AbortSignal) =>
   client
-    .get<SongsResponse>(`/song/search?query=${query}`)
+    .get<SongsResponse>(`/song/search?query=${query}`, { signal })
     .then((res) => res.data.data);
