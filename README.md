@@ -36,7 +36,7 @@ To test payment, use stripe's [test cards](https://stripe.com/docs/testing#cards
 - [Cloudinary](https://cloudinary.com)
 - [Stripe](https://stripe.com)
 - [Prisma](https://www.prisma.io)
-- [CoackroachDB](https://www.cockroachlabs.com)
+- [CockroachDB](https://www.cockroachlabs.com)
 - [NextAuth.js](https://next-auth.js.org)
 - [useAudioPlayer](https://github.com/E-Kuerschner/useAudioPlayer)
 - [Zustand](https://github.com/pmndrs/zustand)
