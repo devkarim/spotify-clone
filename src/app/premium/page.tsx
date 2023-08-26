@@ -34,7 +34,7 @@ const PremiumPage: React.FC<PremiumPageProps> = async ({}) => {
           You are not subscribed to any <span className="font-bold">plan</span>.
         </p>
       )}
-      <SubscribeButton isSubscribed={isSubscribed} />
+      <SubscribeButton isSubscribed={isSubscribed} openModal />
     </Container>
   );
 };

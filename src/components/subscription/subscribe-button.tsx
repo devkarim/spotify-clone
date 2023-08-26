@@ -5,20 +5,25 @@ import { toast } from 'react-toastify';
 
 import log from '@/lib/log';
 import Response from '@/types/server';
+import useSubscriptionModal from '@/hooks/use-subscription-modal';
 import { checkout, getUserPortal } from '@/services/client/subscription';
 
 interface SubscribeButtonProps {
   isSubscribed: boolean;
   title?: string;
+  openModal?: boolean;
 }
 
 const SubscribeButton: React.FC<SubscribeButtonProps> = ({
   isSubscribed,
   title,
+  openModal = false,
 }) => {
+  const openSubscriptionModal = useSubscriptionModal((state) => state.show);
   const [loading, setLoading] = useState(false);
 
   const onSubscribe = async () => {
+    if (!isSubscribed && openModal) return openSubscriptionModal();
     setLoading(true);
     try {
       let url: string;
