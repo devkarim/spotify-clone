@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { FiMusic } from '@react-icons/all-files/fi/FiMusic';
 import { FaPlay } from '@react-icons/all-files/fa/FaPlay';
 import { FaSearch } from '@react-icons/all-files/fa/FaSearch';
+import { FaHistory } from '@react-icons/all-files/fa/FaHistory';
+import { BiCustomize } from '@react-icons/all-files/bi/BiCustomize';
 import { FaArrowRight } from '@react-icons/all-files/fa/FaArrowRight';
 import { PiPlaylistBold } from '@react-icons/all-files/pi/PiPlaylistBold';
 
@@ -90,12 +92,12 @@ const HomePage: React.FC<HomePageProps> = async ({}) => {
           subtitle="Search any song in all of your playlists at once."
         />
         <FeatureCard
-          icon={<FaSearch className="text-2xl" />}
+          icon={<FaHistory className="text-2xl" />}
           title="Recent Songs"
           subtitle="See your recently played songs and playlists."
         />
         <FeatureCard
-          icon={<FaSearch className="text-2xl" />}
+          icon={<BiCustomize className="text-2xl" />}
           title="Customize Your Songs"
           subtitle="Change the name and image of your songs with ease."
         />
