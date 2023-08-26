@@ -27,7 +27,7 @@ const SidebarLibrary: React.FC<SidebarLibraryProps> = async ({
         <AddPlaylistButton icon />
       </div>
       {playlists.length === 0 && (
-        <Card className="m-4 space-y-6">
+        <Card className="m-4 space-y-6 hover:bg-section-card-active">
           <div className="space-y-2">
             <h4>Create your first playlist</h4>
             <p className="text-sm opacity-60">
