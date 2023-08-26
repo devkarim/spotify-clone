@@ -41,6 +41,7 @@ export async function POST(req: Request) {
             throw Errors.invalidId;
           await updateSubscriptionStatus(customerId, subscriptionId, 'ACTIVE');
         }
+        break;
     }
     return NextResponse.json({ received: true }, { status: 200 });
   } catch (err) {
