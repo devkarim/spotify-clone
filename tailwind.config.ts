@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         card: '#242424',
         'section-card': '#181818',
+        'section-card-active': '#282828',
         'section-card-secondary': '#282828',
       },
     },
