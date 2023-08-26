@@ -7,7 +7,7 @@ const Messages = {
     queryRequired: 'Search query is required.',
     invalidFile: 'Invalid file.',
     invalidId: 'Invalid id.',
-    unauthenticated: 'Unauthenticated.',
+    unauthenticated: 'You need to be authenticated to do that.',
     unauthorized: "You don't have permission to do that.",
     maxSongs: 'Max songs reached. Subscribe to premium plan.',
     maxPlaylists: 'Max playlists reached. Subscribe to premium plan.',
