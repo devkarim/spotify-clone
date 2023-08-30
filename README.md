@@ -86,6 +86,12 @@ STRIPE_PREMIUM_PLAN_ID=
 
 You can check [.env.example](https://github.com/devkarim/spotify-clone/blob/main/.env.example) for more information.
 
+### Push changes to database and generate PrismaClient
+
+Use this to push and generate PrismaClient:
+
+`npx prisma db push`
+
 ### Start development server
 
 Use one of the following commands to start the development server:
