@@ -53,7 +53,8 @@ const authOptions: AuthOptions = {
       };
       return session;
     },
-    async signIn({ user: profile, account }) {
+    async signIn({ user: profile, account, credentials }) {
+      if (credentials) return true;
       if (!profile || !profile.email || !account || !account.access_token)
         return false;
       try {
