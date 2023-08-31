@@ -8,6 +8,8 @@ import log from '@/lib/log';
 import Response from '@/types/server';
 import useUser from '@/hooks/use-user';
 import Modal from '@/components/ui/modal';
+import usePlayer from '@/hooks/use-player';
+import usePlaylist from '@/hooks/use-playlist';
 
 interface AccountModalProps {
   isOpen: boolean;
@@ -16,6 +18,8 @@ interface AccountModalProps {
 
 const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
+  const resetPlaylist = usePlaylist((state) => state.reset);
+  const resetPlayer = usePlayer((state) => state.reset);
   const user = useUser();
 
   if (!user) return null;
@@ -24,6 +28,8 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose }) => {
     setLoading(true);
     try {
       await signOut({ callbackUrl: '/' });
+      resetPlayer();
+      resetPlaylist();
       onClose();
     } catch (err) {
       log.exception(err);
